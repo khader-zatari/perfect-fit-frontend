@@ -20,9 +20,8 @@ const ProductCard = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         height: height / 3,
-        width: width / 2.2,
+        width: width / 2.25,
         backgroundColor: "#e1dad1",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
