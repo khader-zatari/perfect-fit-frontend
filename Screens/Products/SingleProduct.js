@@ -27,6 +27,7 @@ const SingleProduct = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        height: "100%",
     },
     imageContainer: {
         flex: 1,
@@ -36,12 +37,10 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         width: "100%",
-        height: "100%",
         resizeMode: "contain",
     },
     secondPart: {
-        width: width,
-        height: height,
+        flex: 1,
     },
     buttonContainer: {
         alignItems: "center",
