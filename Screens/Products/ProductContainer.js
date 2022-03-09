@@ -8,24 +8,13 @@ import SearchBar from "../../Shared/SearchBar";
 import SingleProduct from "./SingleProduct.js";
 import Header from "../../Shared/Header.js";
 const { height } = Dimensions.get("window");
+
 const ProductContainer = () => {
     return (
         <ScrollView style={styles.container} bounces={true}>
             <View>
-                <View>
-                    <Header />
-                    <SearchBar />
-                </View>
-                <View>
-                    <Banner />
-                </View>
-
-                <View style={{ flexDirection: "row" }}>
-                    <ProductList />
-                </View>
-                <View>
-                    <SingleProduct />
-                </View>
+                <Header />
+                <SingleProduct />
             </View>
         </ScrollView>
     );
@@ -35,9 +24,27 @@ const styles = StyleSheet.create({
         marginTop: height / 20,
     },
 });
+
 export default ProductContainer;
+
 {
     /* <View style={{ flex: 1 }}>
                     <SearchedProducts />
                 </View> */
+}
+
+{
+    /* /*/
+    //////////////*/ */
+    // <SearchBar />
+    // </View>
+    // <View>
+    //     <Banner />
+    // </View>
+    // <View style={{ flexDirection: "row" }}>
+    //     <ProductList />
+    // </View>
+    // <View>
+    //     <SingleProduct />
+    // </View>
 }
