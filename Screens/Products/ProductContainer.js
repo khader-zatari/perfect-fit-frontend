@@ -16,7 +16,6 @@ const ProductContainer = () => {
         <ScrollView style={styles.container} bounces={true}>
             <View>
                 <Header />
-
             </View>
         </ScrollView>
     );
