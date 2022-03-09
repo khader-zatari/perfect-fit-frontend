@@ -7,6 +7,8 @@ import SearchedProducts from "./SearchedProducts.js";
 import SearchBar from "../../Shared/SearchBar";
 import SingleProduct from "./SingleProduct.js";
 import Header from "../../Shared/Header.js";
+import StoreList from "./StoreList";
+
 const { height } = Dimensions.get("window");
 
 const ProductContainer = () => {
@@ -14,7 +16,7 @@ const ProductContainer = () => {
         <ScrollView style={styles.container} bounces={true}>
             <View>
                 <Header />
-                <SingleProduct />
+
             </View>
         </ScrollView>
     );

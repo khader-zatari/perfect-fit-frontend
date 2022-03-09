@@ -23,6 +23,7 @@ const ProductList = () => {
 };
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         marginLeft: 3,
         width: "100%",
         height: "100%",
