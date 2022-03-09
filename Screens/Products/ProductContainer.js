@@ -5,20 +5,26 @@ import ProductCard from "./ProductCard.js";
 import ProductList from "./ProductList.js";
 import SearchedProducts from "./SearchedProducts.js";
 import SearchBar from "../../Shared/SearchBar";
+import SingleProduct from "./SingleProduct.js";
+import Header from "../../Shared/Header.js";
 const { height } = Dimensions.get("window");
 const ProductContainer = () => {
     return (
         <ScrollView style={styles.container} bounces={true}>
             <View>
                 <View>
+                    <Header />
                     <SearchBar />
                 </View>
-                <View >
+                <View>
                     <Banner />
                 </View>
 
                 <View style={{ flexDirection: "row" }}>
                     <ProductList />
+                </View>
+                <View>
+                    <SingleProduct />
                 </View>
             </View>
         </ScrollView>
