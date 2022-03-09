@@ -12,6 +12,12 @@ const ProductList = () => {
             <TouchableOpacity onPress={() => {}}>
                 <ProductCard />
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => {}}>
+                <ProductCard />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {}}>
+                <ProductCard />
+            </TouchableOpacity>
         </View>
     );
 };

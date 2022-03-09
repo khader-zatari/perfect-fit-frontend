@@ -22,12 +22,11 @@ const Banner = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: "gainsboro",
     },
     swiper: {
         width: width,
         alignItems: "center",
-        marginTop: 10,
+        marginTop: 0,
     },
     imageBanner: {
         height: width,
