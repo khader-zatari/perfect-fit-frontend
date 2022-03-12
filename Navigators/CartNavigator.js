@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 const CartNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="CartHomePage">
-            <Stack.Screen name="CartHomePage" component={Cart}  />
+            <Stack.Screen name="CartHomePage" component={Cart} />
         </Stack.Navigator>
     );
 };
