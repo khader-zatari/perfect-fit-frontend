@@ -2,7 +2,7 @@ import { Button, Center } from "native-base";
 import React from "react";
 import { Text, View, ScrollView, StyleSheet, Image, Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
-const SingleProduct = () => {
+const SingleProduct = (props) => {
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -12,7 +12,7 @@ const SingleProduct = () => {
                 <View style={styles.secondPart}>
                     <Text>black T-shirt</Text>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button} size="16">
+                        <Button style={styles.button} size="16" onPress={()=>{props.navigation.navigate('Just')}}>
                             Add to Cart
                         </Button>
                     </View>

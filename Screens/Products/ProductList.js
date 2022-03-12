@@ -3,10 +3,10 @@ import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-nati
 import ProductCard from "./ProductCard";
 
 const { width } = Dimensions.get("window");
-const ProductList = () => {
+const ProductList = (props) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
                 <ProductCard />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {}}>
