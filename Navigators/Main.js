@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator();
 const Main = () => {
     return (
         <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="Cart"
             screenOptions={{
                 keyboardHidesTabBar: true,
                 tabBarShowLabel: false,
