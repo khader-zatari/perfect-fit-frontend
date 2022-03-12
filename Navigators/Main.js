@@ -1,16 +1,23 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeNavigator from "./HomeNavigator";
+import CartNavigator from "./CartNavigator";
 
-import SingleProduct from "../Screens/Products/SingleProduct";
-import ProductList from "../Screens/Products/ProductList";
+const Tab = createBottomTabNavigator();
 
-const Stack = createNativeStackNavigator();
 const Main = () => {
     return (
-        <Stack.Navigator initialRouteName="ProductList">
-            <Stack.Screen name="ProductList" component={ProductList} />
-            <Stack.Screen name="SingleProduct" component={SingleProduct} />
-        </Stack.Navigator>
+        <Tab.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+                keyboardHidesTabBar: true,
+                tabBarShowLabel: false,
+                tabBarActiveTintColor: "#e91e63",
+            }}
+        >
+            <Tab.Screen name="Home" component={HomeNavigator} />
+            <Tab.Screen name="Cart" component={CartNavigator} />
+        </Tab.Navigator>
     );
 };
 export default Main;
