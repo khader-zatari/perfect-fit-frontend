@@ -1,18 +1,18 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 const MenWomenKids = (props) => {
     return (
         <View style={styles.container}>
-            <View style={styles.men}>
+            <TouchableOpacity style={styles.men}>
                 <Text style={styles.text}>MEN</Text>
-            </View>
-            <View style={styles.women}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.women}>
                 <Text style={styles.text}>WOMEN</Text>
-            </View>
-            <View style={styles.kids}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.kids}>
                 <Text style={styles.text}>KIDS</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 };
