@@ -2,13 +2,14 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeNavigator from "./HomeNavigator";
 import CartNavigator from "./CartNavigator";
+import UserProfileNavigator from "./UserProfileNavigator";
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
     return (
         <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="UserProfile"
             screenOptions={{
                 keyboardHidesTabBar: true,
                 tabBarShowLabel: false,
@@ -17,6 +18,7 @@ const Main = () => {
         >
             <Tab.Screen name="Home" component={HomeNavigator} />
             <Tab.Screen name="Cart" component={CartNavigator} />
+            <Tab.Screen name="UserProfile" component={UserProfileNavigator} />
         </Tab.Navigator>
     );
 };

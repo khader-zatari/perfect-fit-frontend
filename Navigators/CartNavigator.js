@@ -8,7 +8,14 @@ import Cart from "../Screens/Cart/Cart";
 const Stack = createNativeStackNavigator();
 const CartNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="CartHomePage">
+        <Stack.Navigator
+            initialRouteName="CartHomePage"
+            screenOptions={{
+                contentStyle: {
+                    backgroundColor: "#FFFFFF",
+                },
+            }}
+        >
             <Stack.Screen name="CartHomePage" component={Cart} />
         </Stack.Navigator>
     );

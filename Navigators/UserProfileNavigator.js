@@ -1,23 +1,23 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import SingleProduct from "../Screens/Products/SingleProduct";
-import ProductList from "../Screens/Products/ProductList";
+import UserProfile from "../Screens/User/UserProfile";
+import SignUp from "../Screens/User/SignUp";
 
 const Stack = createNativeStackNavigator();
-const HomeNavigator = () => {
+
+const UserProfileNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName="ProductList"
+            initialRouteName="SignUp"
             screenOptions={{
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
                 },
             }}
         >
-            <Stack.Screen name="ProductList" component={ProductList} />
-            <Stack.Screen name="SingleProduct" component={SingleProduct} />
+            <Stack.Screen name="Userpage" component={UserProfile} />
+            <Stack.Screen name="SignUp" component={SignUp} />
         </Stack.Navigator>
     );
 };
-export default HomeNavigator;
+export default UserProfileNavigator;
