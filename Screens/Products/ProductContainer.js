@@ -11,7 +11,7 @@ import StoreList from "./StoreList";
 
 const { height } = Dimensions.get("window");
 
-const ProductContainer = () => {
+const ProductContainer = (props) => {
     return (
         <ScrollView style={styles.container} bounces={true}>
             <View>
