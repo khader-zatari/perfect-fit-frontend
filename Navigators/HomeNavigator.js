@@ -2,14 +2,15 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SingleProduct from "../Screens/Products/SingleProduct";
-import ProductList from "../Screens/Products/ProductList";
+
 import MenWomenKids from "../Screens/Products/MenWomenKids";
+import ProductContainer from "../Screens/Products/ProductContainer";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName="SingleProduct"
+            initialRouteName="ProductContainer"
             screenOptions={{
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
@@ -18,7 +19,7 @@ const HomeNavigator = () => {
             }}
         >
             <Stack.Screen name="MenWomenKids" component={MenWomenKids} />
-            <Stack.Screen name="ProductList" component={ProductList} />
+            <Stack.Screen name="ProductContainer" component={ProductContainer} />
             <Stack.Screen name="SingleProduct" component={SingleProduct} />
         </Stack.Navigator>
     );

@@ -13,6 +13,7 @@ const UserProfileNavigator = () => {
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
                 },
+                headerShown: false,
             }}
         >
             <Stack.Screen name="Userpage" component={UserProfile} />

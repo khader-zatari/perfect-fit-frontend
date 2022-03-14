@@ -14,8 +14,14 @@ const { height } = Dimensions.get("window");
 const ProductContainer = (props) => {
     return (
         <ScrollView style={styles.container} bounces={true}>
+            <Header />
+            <SearchBar />
             <View>
-                <Header />
+                <Banner />
+            </View>
+            
+            <View style={{ flexDirection: "row" }}>
+                <ProductList />
             </View>
         </ScrollView>
     );
