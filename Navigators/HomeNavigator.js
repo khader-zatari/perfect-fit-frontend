@@ -9,11 +9,12 @@ const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName="MenWomenKids"
+            initialRouteName="SingleProduct"
             screenOptions={{
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
                 },
+                headerShown: false,
             }}
         >
             <Stack.Screen name="MenWomenKids" component={MenWomenKids} />
