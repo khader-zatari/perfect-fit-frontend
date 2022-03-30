@@ -4,13 +4,28 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 const MenWomenKids = (props) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.men}>
+            <TouchableOpacity
+                style={styles.men}
+                onPress={() => {
+                    props.navigation.navigate("ProductContainer");
+                }}
+            >
                 <Text style={styles.text}>MEN</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.women}>
+            <TouchableOpacity
+                style={styles.women}
+                onPress={() => {
+                    props.navigation.navigate("ProductContainer");
+                }}
+            >
                 <Text style={styles.text}>WOMEN</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.kids}>
+            <TouchableOpacity
+                style={styles.kids}
+                onPress={() => {
+                    props.navigation.navigate("ProductContainer");
+                }}
+            >
                 <Text style={styles.text}>KIDS</Text>
             </TouchableOpacity>
         </View>

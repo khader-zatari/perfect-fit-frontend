@@ -21,7 +21,7 @@ const ProductContainer = (props) => {
             </View>
             
             <View style={{ flexDirection: "row" }}>
-                <ProductList />
+                <ProductList navigation={props.navigation} />
             </View>
         </ScrollView>
     );

@@ -3,7 +3,7 @@ import { Button } from "native-base";
 import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react-native";
 
 const { height, width } = Dimensions.get("window");
-const SignUp = () => {
+const LogIn = (props) => {
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -22,7 +22,7 @@ const SignUp = () => {
                 </View>
                 <View style={styles.secondPart}>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button} size="12" onPress={() => {}}>
+                        <Button style={styles.button} size="12" onPress={() => { props.navigation.navigate("Userpage");}}>
                             <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>LOGIN</Text>
                         </Button>
                     </View>
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
     secondPart: {},
 });
 
-export default SignUp;
+export default LogIn;

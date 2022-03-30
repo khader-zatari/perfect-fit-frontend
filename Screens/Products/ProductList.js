@@ -6,16 +6,16 @@ const { width } = Dimensions.get("window");
 const ProductList = (props) => {
     return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={() => {props.navigation.navigate("SingleProduct")}}>
+                <ProductCard />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
                 <ProductCard />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
                 <ProductCard />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
-                <ProductCard />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
                 <ProductCard />
             </TouchableOpacity>
         </View>

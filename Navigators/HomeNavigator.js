@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName="ProductContainer"
+            initialRouteName="MenWomenKids"
             screenOptions={{
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
