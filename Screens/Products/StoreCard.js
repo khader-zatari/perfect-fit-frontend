@@ -3,7 +3,6 @@ import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
 const { height, width } = Dimensions.get("window");
 
 const ProductCard = (props) => {
-    console.log(props);
     var price = 10;
     var name = "grey Tshirt ";
     return (

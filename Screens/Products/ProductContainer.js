@@ -36,8 +36,7 @@ const ProductContainer = (props) => {
             <View>
                 <Banner />
             </View>
-            {console.log(store.name)}
-            {console.log(personType)}
+
             <View style={{ flexDirection: "row" }}>
                 <ProductList navigation={props.navigation} products={products} />
             </View>
