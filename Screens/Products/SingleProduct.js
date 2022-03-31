@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, ScrollView, StyleSheet, Image, Dimensions } from "react-native";
 import { Select, Box, CheckIcon, Center, NativeBaseProvider, Button, Row } from "native-base";
 const { width, height } = Dimensions.get("window");
 const SingleProduct = (props) => {
-    let [service, setService] = React.useState("");
-    let [service1, setService1] = React.useState("");
+    const product = props.route.params.product;
+    let [color, setColor] = useState("");
+    let [size, setSize] = useState("");
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -12,11 +13,11 @@ const SingleProduct = (props) => {
                     <Image style={styles.image} resizeMode="contain" source={require("../../assets/1638427112t-shirt-png.png")} />
                 </View>
                 <View style={styles.secondPart}>
-                    <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>black T-shirt</Text>
+                    <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>{product.name}</Text>
                     <View style={styles.selectContainer}>
                         <View style={styles.selectLeft}>
                             <Select
-                                selectedValue={service}
+                                selectedValue={size}
                                 accessibilityLabel="Size"
                                 placeholder="Size"
                                 color="black"
@@ -25,18 +26,16 @@ const SingleProduct = (props) => {
                                     endIcon: <CheckIcon size="5" />,
                                 }}
                                 mt={1}
-                                onValueChange={(itemValue) => setService(itemValue)}
+                                onValueChange={(size) => setSize(size)}
                             >
-                                <Select.Item label="S" value="S" />
-                                <Select.Item label="M" value="M" />
-                                <Select.Item label="L" value="L" />
-                                <Select.Item label="XL" value="XL" />
-                                <Select.Item label="XXL" value="XXL" />
+                                {product.size.map((item) => {
+                                    return <Select.Item label={item} value={item} />;
+                                })}
                             </Select>
                         </View>
                         <View style={styles.selectRight}>
                             <Select
-                                selectedValue={service1}
+                                selectedValue={color}
                                 accessibilityLabel="Color"
                                 placeholder="Color"
                                 color="black"
@@ -45,16 +44,16 @@ const SingleProduct = (props) => {
                                     endIcon: <CheckIcon size="5" />,
                                 }}
                                 mt={1}
-                                onValueChange={(itemValue) => setService1(itemValue)}
+                                onValueChange={(color) => setColor(color)}
                             >
-                                <Select.Item label="Black" value="Black" />
-                                <Select.Item label="White" value="White" />
-                                <Select.Item label="Red" value="Red" />
+                                {product.color.map((item) => {
+                                    return <Select.Item label={item} value={item} />;
+                                })}
                             </Select>
                         </View>
                     </View>
                     <View style={{ width: "90%", marginBottom: 10, alignSelf: "center" }}>
-                        <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right" }}>$220</Text>
+                        <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right" }}>{product.price}</Text>
                     </View>
 
                     <View style={styles.buttonContainer}>
@@ -69,7 +68,7 @@ const SingleProduct = (props) => {
                         </Button>
                     </View>
                     <View style={styles.descriptionContainer}>
-                        <Text>flasjdflkasjd;flkjas;ldkfjas;ldkfj;lsakdjf;laskdjf;laskdjf;salkdjf;salkdjfaslkdjflkasdjf;lkasjdf;lkjsad;lkfj;</Text>
+                        <Text>{product.description}</Text>
                     </View>
                 </View>
             </View>

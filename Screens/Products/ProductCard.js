@@ -2,17 +2,17 @@ import react from "react";
 import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
 const { height, width } = Dimensions.get("window");
 
-const ProductCard = () => {
+const ProductCard = (props) => {
     var price = 10;
     var name = "grey Tshirt ";
     return (
         <View style={styles.container}>
             <Image source={require("../../assets/1638427112t-shirt-png.png")} style={styles.image} />
             <View style={styles.price}>
-                <Text style={styles.priceText}>{price}</Text>
+                <Text style={styles.priceText}>{props.price} Nis</Text>
             </View>
             <View style={styles.description}>
-                <Text style={styles.descriptionText}>{name}</Text>
+                <Text style={styles.descriptionText}>{props.name}</Text>
             </View>
         </View>
     );

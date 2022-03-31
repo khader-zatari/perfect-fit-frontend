@@ -2,7 +2,8 @@ import react from "react";
 import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
 const { height, width } = Dimensions.get("window");
 
-const ProductCard = () => {
+const ProductCard = (props) => {
+    console.log(props);
     var price = 10;
     var name = "grey Tshirt ";
     return (
@@ -10,7 +11,7 @@ const ProductCard = () => {
             <Image source={require("../../assets/google-logo-9808.png")} style={styles.image} />
 
             <View style={styles.description}>
-                <Text style={styles.descriptionText}>{name}</Text>
+                <Text style={styles.descriptionText}>{props.name}</Text>
             </View>
         </View>
     );
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
         flex: 3,
         resizeMode: "contain",
         margin: 3,
+        width: "100%",
     },
     description: {
         flex: 1.5,

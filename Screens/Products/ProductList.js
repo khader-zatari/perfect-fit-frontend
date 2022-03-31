@@ -1,23 +1,24 @@
-import react from "react";
+import react, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import ProductCard from "./ProductCard";
 
 const { width } = Dimensions.get("window");
 const ProductList = (props) => {
+    const products = props.products;
+    useEffect(() => {});
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => {props.navigation.navigate("SingleProduct")}}>
-                <ProductCard />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
-                <ProductCard />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
-                <ProductCard />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {props.navigation.navigate('SingleProduct')}}>
-                <ProductCard />
-            </TouchableOpacity>
+            {products.map((item) => {
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            props.navigation.navigate("SingleProduct", { product: item });
+                        }}
+                    >
+                        <ProductCard {...item} />
+                    </TouchableOpacity>
+                );
+            })}
         </View>
     );
 };

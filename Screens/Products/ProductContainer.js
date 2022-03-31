@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useState, useEffect } from "react";
 import { Text, View, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Banner from "../../Shared/Banner.js";
 import ProductCard from "./ProductCard.js";
@@ -12,6 +12,23 @@ import StoreList from "./StoreList";
 const { height } = Dimensions.get("window");
 
 const ProductContainer = (props) => {
+    const productsJson = require("../../assets/products.json");
+    const store = props.route.params.store;
+    const personType = props.route.params.personType;
+
+    const [storeProducts, setStoreProducts] = useState(
+        productsJson.filter((item) => {
+            return item.storeName == store.name;
+        })
+    );
+    const [products, setProducts] = useState(
+        storeProducts.filter((item) => {
+            return item.personType == personType;
+        })
+    );
+
+    //this in the database rest api
+
     return (
         <ScrollView style={styles.container} bounces={true}>
             <Header />
@@ -19,9 +36,10 @@ const ProductContainer = (props) => {
             <View>
                 <Banner />
             </View>
-            
+            {console.log(store.name)}
+            {console.log(personType)}
             <View style={{ flexDirection: "row" }}>
-                <ProductList navigation={props.navigation} />
+                <ProductList navigation={props.navigation} products={products} />
             </View>
         </ScrollView>
     );

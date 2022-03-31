@@ -5,7 +5,7 @@ import SingleProduct from "../Screens/Products/SingleProduct";
 
 import MenWomenKids from "../Screens/Products/MenWomenKids";
 import ProductContainer from "../Screens/Products/ProductContainer";
-
+import StoreList from "../Screens/Products/StoreList";
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
     return (
@@ -19,6 +19,7 @@ const HomeNavigator = () => {
             }}
         >
             <Stack.Screen name="MenWomenKids" component={MenWomenKids} />
+            <Stack.Screen name="stores" component={StoreList} />
             <Stack.Screen name="ProductContainer" component={ProductContainer} />
             <Stack.Screen name="SingleProduct" component={SingleProduct} />
         </Stack.Navigator>

@@ -7,7 +7,7 @@ const MenWomenKids = (props) => {
             <TouchableOpacity
                 style={styles.men}
                 onPress={() => {
-                    props.navigation.navigate("ProductContainer");
+                    props.navigation.navigate("stores", { personType: "Men" });
                 }}
             >
                 <Text style={styles.text}>MEN</Text>
@@ -15,7 +15,7 @@ const MenWomenKids = (props) => {
             <TouchableOpacity
                 style={styles.women}
                 onPress={() => {
-                    props.navigation.navigate("ProductContainer");
+                    props.navigation.navigate("stores", { personType: "Women" });
                 }}
             >
                 <Text style={styles.text}>WOMEN</Text>
@@ -23,7 +23,7 @@ const MenWomenKids = (props) => {
             <TouchableOpacity
                 style={styles.kids}
                 onPress={() => {
-                    props.navigation.navigate("ProductContainer");
+                    props.navigation.navigate("stores", { personType: "Kids" });
                 }}
             >
                 <Text style={styles.text}>KIDS</Text>
