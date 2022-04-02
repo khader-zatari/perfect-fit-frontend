@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Text, View, ScrollView, StyleSheet, Image, Dimensions } from "react-native";
 import { Select, Box, CheckIcon, Center, NativeBaseProvider, Button, Row } from "native-base";
+import { connect } from "react-redux";
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants";
 const { width, height } = Dimensions.get("window");
 const SingleProduct = (props) => {
     const product = props.route.params.product;
@@ -61,7 +63,8 @@ const SingleProduct = (props) => {
                             style={styles.button}
                             size="16"
                             onPress={() => {
-                                props.navigation.navigate("Just");
+                                // props.navigation.navigate("Just");
+                                props.addItemToCart(product);
                             }}
                         >
                             Add to Cart
@@ -74,6 +77,21 @@ const SingleProduct = (props) => {
             </View>
         </ScrollView>
     );
+};
+
+const mapDispachToProps = (dispatch) => {
+    return {
+        addItemToCart: (product) => {
+            dispatch({ type: ADD_TO_CART, payload: { quantity: 1, product } });
+        },
+    };
+};
+
+const mapStateToProps = (state) => {
+    const { cartItems } = state;
+    return {
+        cartItems: cartItems,
+    };
 };
 const styles = StyleSheet.create({
     container: {
@@ -120,4 +138,5 @@ const styles = StyleSheet.create({
         margin: 20,
     },
 });
-export default SingleProduct;
+
+export default connect(mapStateToProps, mapDispachToProps)(SingleProduct);

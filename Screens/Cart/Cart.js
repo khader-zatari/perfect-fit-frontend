@@ -3,22 +3,31 @@ import { Text, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ProductCartCard from "./ProductCartCard";
 import ProductCartList from "./ProductCartList";
 import { Button } from "native-base";
+import { connect } from "react-redux";
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants";
 const { height } = Dimensions.get("window");
 
-const Cart = () => {
+const Cart = (props) => {
     return (
         <ScrollView>
             <View style={styles.Container}>
-                <ProductCartList />
+                {props.cartItems.map((item) => {
+                    //return <ProductCartList item={item} />;
+                    return <ProductCartCard item={item} />;
+                })}
             </View>
             <View style={styles.priceAndButton}>
                 <View style={styles.price}>
                     <Text>Total 200$</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button style={styles.button} size="16" onPress={() => {
-                        
-                    }}>
+                    <Button
+                        style={styles.button}
+                        size="16"
+                        onPress={() => {
+                            props.clearCart();
+                        }}
+                    >
                         Buy with one click
                     </Button>
                 </View>
@@ -26,6 +35,21 @@ const Cart = () => {
         </ScrollView>
     );
 };
+
+const mapStateToProps = (state) => {
+    const { cartItems } = state;
+    return {
+        cartItems: cartItems,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearCart: () => {
+            dispatch({ type: CLEAR_CART });
+        },
+    };
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -52,4 +76,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

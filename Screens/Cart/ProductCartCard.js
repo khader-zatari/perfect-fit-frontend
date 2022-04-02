@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
-const ProductCartCard = () => {
+const ProductCartCard = (props) => {
+    console.log(props.item.product);
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -12,14 +13,14 @@ const ProductCartCard = () => {
             <View style={styles.right}>
                 <View style={styles.rightLeft}>
                     <View style={styles.rightLeftUpTextContainer}>
-                        <Text>Nautica</Text>
+                        <Text>{props.item.product.brand}</Text>
                     </View>
                     <View style={styles.rightLeftDownTextContainer}>
-                        <Text>Black T-Shirt</Text>
+                        <Text>{props.item.product.name}</Text>
                     </View>
                 </View>
                 <View style={styles.rightRight}>
-                    <Text>$200</Text>
+                    <Text>${props.item.product.price}</Text>
                 </View>
             </View>
         </View>
@@ -40,7 +41,6 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 2,
-
     },
     image: {
         flex: 1,
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     rightLeft: { flex: 4 },
-    rightLeftUpTextContainer: {  flex: 1, justifyContent: "center", alignItems: "center" },
-    rightLeftDownTextContainer: {  flex: 1, justifyContent: "center", alignItems: "center" },
+    rightLeftUpTextContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+    rightLeftDownTextContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
     rightRight: { flex: 3, justifyContent: "center", alignItems: "center" },
 });
 export default ProductCartCard;
