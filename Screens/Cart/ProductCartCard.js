@@ -29,7 +29,7 @@ const ProductCartCard = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#FFF000",
         opacity: 0.7,
         width: "80%",
         height: height / 10,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 2,
-        backgroundColor: "#000",
+
     },
     image: {
         flex: 1,
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
         flex: 4,
         flexDirection: "row",
     },
-    rightLeft: { flex: 4, backgroundColor: "#00FF00" },
-    rightLeftUpTextContainer: { backgroundColor: "#FFA500", flex: 1, justifyContent: "center", alignItems: "center" },
-    rightLeftDownTextContainer: { backgroundColor: "#FF6347", flex: 1, justifyContent: "center", alignItems: "center" },
-    rightRight: { backgroundColor: "#40e0d0", flex: 3, justifyContent: "center", alignItems: "center" },
+    rightLeft: { flex: 4 },
+    rightLeftUpTextContainer: {  flex: 1, justifyContent: "center", alignItems: "center" },
+    rightLeftDownTextContainer: {  flex: 1, justifyContent: "center", alignItems: "center" },
+    rightRight: { flex: 3, justifyContent: "center", alignItems: "center" },
 });
 export default ProductCartCard;

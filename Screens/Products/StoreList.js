@@ -16,7 +16,8 @@ const ProductList = (props) => {
             {stores.map((store) => {
                 return (
                     <TouchableOpacity
-                        style={{ position: 'relative' }}
+                        key={store.name}
+                        style={{ position: "relative" }}
                         onPress={() => {
                             props.navigation.navigate("ProductContainer", { personType: personType, store: store });
                         }}

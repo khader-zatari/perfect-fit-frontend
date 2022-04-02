@@ -5,6 +5,7 @@ const MenWomenKids = (props) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
+            key={"Men"}
                 style={styles.men}
                 onPress={() => {
                     props.navigation.navigate("stores", { personType: "Men" });
@@ -13,6 +14,7 @@ const MenWomenKids = (props) => {
                 <Text style={styles.text}>MEN</Text>
             </TouchableOpacity>
             <TouchableOpacity
+            key={"Women"}
                 style={styles.women}
                 onPress={() => {
                     props.navigation.navigate("stores", { personType: "Women" });
@@ -21,6 +23,7 @@ const MenWomenKids = (props) => {
                 <Text style={styles.text}>WOMEN</Text>
             </TouchableOpacity>
             <TouchableOpacity
+            key={"Kids"}
                 style={styles.kids}
                 onPress={() => {
                     props.navigation.navigate("stores", { personType: "Kids" });

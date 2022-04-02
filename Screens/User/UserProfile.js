@@ -10,8 +10,8 @@ const UserProfile = (props) => {
                 </Button>
             </View>
             <View style={styles.buttonContainer}>
-                <Button style={styles.button} size="16" onPress={() => {}}>
-                    Buy
+                <Button style={styles.button} size="16" onPress={() => {props.navigation.navigate("")}}>
+                    Profile information
                 </Button>
             </View>
             <View style={styles.buttonContainer}>
@@ -25,12 +25,12 @@ const UserProfile = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        height: "60%",
+
     },
     buttonContainer: {
         alignItems: "center",
         justifyContent: "center",
+        margin:10
     },
     button: { width: "90%" },
     descriptionContainer: {

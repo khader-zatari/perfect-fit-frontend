@@ -16,8 +16,10 @@ const Cart = () => {
                     <Text>Total 200$</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button style={styles.button} size="16" onPress={() => {}}>
-                        Buy
+                    <Button style={styles.button} size="16" onPress={() => {
+                        
+                    }}>
+                        Buy with one click
                     </Button>
                 </View>
             </View>
