@@ -5,18 +5,39 @@ const UserProfile = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
-                <Button style={styles.button} size="16" onPress={() => {props.navigation.navigate("ShippingAddress")}}>
+                <Button
+                    style={styles.button}
+                    size="16"
+                    onPress={() => {
+                        props.navigation.navigate("ShippingAddress");
+                    }}
+                >
                     Shipping Address
                 </Button>
             </View>
             <View style={styles.buttonContainer}>
-                <Button style={styles.button} size="16" onPress={() => {props.navigation.navigate("")}}>
+                <Button
+                    style={styles.button}
+                    size="16"
+                    onPress={() => {
+                        props.navigation.navigate("");
+                    }}
+                >
                     Profile information
                 </Button>
             </View>
             <View style={styles.buttonContainer}>
-                <Button style={styles.button} size="16" onPress={() => {}}>
-                    Buy
+                <Button style={styles.button} size="16" onPress={() => {
+                    props.navigation.navigate("Vto");
+                }}>
+                    VTO
+                </Button>
+            </View>
+            <View style={styles.buttonContainer}>
+                <Button style={styles.button} size="16" onPress={() => {
+                    props.navigation.navigate("Vto1");
+                }}>
+                    VTO1
                 </Button>
             </View>
         </View>
@@ -25,12 +46,11 @@ const UserProfile = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     },
     buttonContainer: {
         alignItems: "center",
         justifyContent: "center",
-        margin:10
+        margin: 10,
     },
     button: { width: "90%" },
     descriptionContainer: {
