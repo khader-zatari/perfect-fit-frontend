@@ -5,6 +5,7 @@ import SignUp from "../Screens/User/SignUp";
 import LogIn from "../Screens/User/LogIn";
 import ShippingAddress from "../Screens/User/ShippingAddress";
 import Vto from "../Screens/User/Vto";
+import Vto1 from "../Screens/User/Vto1";
 const Stack = createNativeStackNavigator();
 
 const UserProfileNavigator = () => {
