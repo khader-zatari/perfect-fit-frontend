@@ -40,6 +40,13 @@ const UserProfile = (props) => {
                     VTO1
                 </Button>
             </View>
+            <View style={styles.buttonContainer}>
+                <Button style={styles.button} size="16" onPress={() => {
+                    props.navigation.navigate("Admin");
+                }}>
+                    Admin
+                </Button>
+            </View>
         </View>
     );
 };
