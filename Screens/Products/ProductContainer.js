@@ -7,7 +7,7 @@ import SearchedProducts from "./SearchedProducts.js";
 import SearchBar from "../../Shared/SearchBar";
 import SingleProduct from "./SingleProduct.js";
 import Header from "../../Shared/Header.js";
-import StoreList from "./StoreList";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { height } = Dimensions.get("window");
 
@@ -30,17 +30,21 @@ const ProductContainer = (props) => {
     //this in the database rest api
 
     return (
-        <ScrollView style={styles.container} bounces={true}>
-            <Header />
-            <SearchBar />
-            <View>
-                <Banner />
-            </View>
+        <SafeAreaView>
+            <ScrollView bounces={true}>
+                <View style={styles.container}>
+                    <Header />
+                    <SearchBar />
+                    <View>
+                        <Banner />
+                    </View>
 
-            <View style={{ flexDirection: "row" }}>
-                <ProductList navigation={props.navigation} products={products} />
-            </View>
-        </ScrollView>
+                    <View style={{ flexDirection: "row" }}>
+                        <ProductList navigation={props.navigation} products={products} />
+                    </View>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({

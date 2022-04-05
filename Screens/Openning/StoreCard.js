@@ -7,7 +7,7 @@ const ProductCard = (props) => {
     var name = "grey Tshirt ";
     return (
         <View style={styles.container}>
-            <Image source={require("../../assets/google-logo-9808.png")} style={styles.image} />
+            <Image source={{ uri: props.image ? props.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
 
             <View style={styles.description}>
                 <Text style={styles.descriptionText}>{props.name}</Text>

@@ -14,6 +14,7 @@ const CartNavigator = () => {
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
                 },
+                headerShown: false,
             }}
         >
             <Stack.Screen name="CartHomePage" component={Cart} />

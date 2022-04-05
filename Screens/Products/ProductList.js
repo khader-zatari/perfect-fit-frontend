@@ -11,7 +11,7 @@ const ProductList = (props) => {
             {products.map((item) => {
                 return (
                     <TouchableOpacity
-                    key={item._id}
+                        key={item._id.$oid} //you should change this one
                         onPress={() => {
                             props.navigation.navigate("SingleProduct", { product: item });
                         }}

@@ -3,79 +3,82 @@ import { Text, View, ScrollView, StyleSheet, Image, Dimensions } from "react-nat
 import { Select, Box, CheckIcon, Center, NativeBaseProvider, Button, Row } from "native-base";
 import { connect } from "react-redux";
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 const { width, height } = Dimensions.get("window");
 const SingleProduct = (props) => {
     const product = props.route.params.product;
     let [color, setColor] = useState("");
     let [size, setSize] = useState("");
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.imageContainer}>
-                    <Image style={styles.image} resizeMode="contain" source={require("../../assets/1638427112t-shirt-png.png")} />
-                </View>
-                <View style={styles.secondPart}>
-                    <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>{product.name}</Text>
-                    <View style={styles.selectContainer}>
-                        <View style={styles.selectLeft}>
-                            <Select
-                                selectedValue={size}
-                                accessibilityLabel="Size"
-                                placeholder="Size"
-                                color="black"
-                                _selectedItem={{
-                                    bg: "teal.600",
-                                    endIcon: <CheckIcon size="5" />,
-                                }}
-                                mt={1}
-                                onValueChange={(size) => setSize(size)}
-                            >
-                                {product.size.map((item) => {
-                                    return <Select.Item label={item} value={item} />;
-                                })}
-                            </Select>
-                        </View>
-                        <View style={styles.selectRight}>
-                            <Select
-                                selectedValue={color}
-                                accessibilityLabel="Color"
-                                placeholder="Color"
-                                color="black"
-                                _selectedItem={{
-                                    bg: "teal.600",
-                                    endIcon: <CheckIcon size="5" />,
-                                }}
-                                mt={1}
-                                onValueChange={(color) => setColor(color)}
-                            >
-                                {product.color.map((item) => {
-                                    return <Select.Item label={item} value={item} />;
-                                })}
-                            </Select>
-                        </View>
+        <SafeAreaView edges={["top", "left", "right"]}>
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.imageContainer}>
+                        <Image style={styles.image} resizeMode="contain" source={require("../../assets/1638427112t-shirt-png.png")} />
                     </View>
-                    <View style={{ width: "90%", marginBottom: 10, alignSelf: "center" }}>
-                        <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right" }}>{product.price}</Text>
-                    </View>
+                    <View style={styles.secondPart}>
+                        <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>{product.name}</Text>
+                        <View style={styles.selectContainer}>
+                            <View style={styles.selectLeft}>
+                                <Select
+                                    selectedValue={size}
+                                    accessibilityLabel="Size"
+                                    placeholder="Size"
+                                    color="black"
+                                    _selectedItem={{
+                                        bg: "teal.600",
+                                        endIcon: <CheckIcon size="5" />,
+                                    }}
+                                    mt={1}
+                                    onValueChange={(size) => setSize(size)}
+                                >
+                                    {product.size.map((item) => {
+                                        return <Select.Item label={item} value={item} />;
+                                    })}
+                                </Select>
+                            </View>
+                            <View style={styles.selectRight}>
+                                <Select
+                                    selectedValue={color}
+                                    accessibilityLabel="Color"
+                                    placeholder="Color"
+                                    color="black"
+                                    _selectedItem={{
+                                        bg: "teal.600",
+                                        endIcon: <CheckIcon size="5" />,
+                                    }}
+                                    mt={1}
+                                    onValueChange={(color) => setColor(color)}
+                                >
+                                    {product.color.map((item) => {
+                                        return <Select.Item label={item} value={item} />;
+                                    })}
+                                </Select>
+                            </View>
+                        </View>
+                        <View style={{ width: "90%", marginBottom: 10, alignSelf: "center" }}>
+                            <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right" }}>{product.price}</Text>
+                        </View>
 
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            style={styles.button}
-                            size="16"
-                            onPress={() => {
-                                // props.navigation.navigate("Just");
-                                props.addItemToCart(product);
-                            }}
-                        >
-                            Add to Cart
-                        </Button>
-                    </View>
-                    <View style={styles.descriptionContainer}>
-                        <Text>{product.description}</Text>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                size="16"
+                                onPress={() => {
+                                    // props.navigation.navigate("Just");
+                                    props.addItemToCart(product);
+                                }}
+                            >
+                                Add to Cart
+                            </Button>
+                        </View>
+                        <View style={styles.descriptionContainer}>
+                            <Text>{product.description}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

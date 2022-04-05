@@ -1,11 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const MenWomenKids = (props) => {
     return (
-        <View style={styles.container}>
+        <SafeAreaView edges={["top", "left", "right"]} style={styles.container}>
             <TouchableOpacity
-            key={"Men"}
+                key={"Men"}
                 style={styles.men}
                 onPress={() => {
                     props.navigation.navigate("stores", { personType: "Men" });
@@ -14,7 +15,7 @@ const MenWomenKids = (props) => {
                 <Text style={styles.text}>MEN</Text>
             </TouchableOpacity>
             <TouchableOpacity
-            key={"Women"}
+                key={"Women"}
                 style={styles.women}
                 onPress={() => {
                     props.navigation.navigate("stores", { personType: "Women" });
@@ -23,7 +24,7 @@ const MenWomenKids = (props) => {
                 <Text style={styles.text}>WOMEN</Text>
             </TouchableOpacity>
             <TouchableOpacity
-            key={"Kids"}
+                key={"Kids"}
                 style={styles.kids}
                 onPress={() => {
                     props.navigation.navigate("stores", { personType: "Kids" });
@@ -31,7 +32,7 @@ const MenWomenKids = (props) => {
             >
                 <Text style={styles.text}>KIDS</Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
@@ -41,14 +42,17 @@ const styles = StyleSheet.create({
     men: {
         backgroundColor: "#FFE900",
         flex: 1,
+        justifyContent: "center",
     },
     women: {
         backgroundColor: "#FCFFF7",
         flex: 1,
+        justifyContent: "center",
     },
     kids: {
         backgroundColor: "#21A0A0",
         flex: 1,
+        justifyContent: "center",
     },
     text: {
         alignItems: "center",

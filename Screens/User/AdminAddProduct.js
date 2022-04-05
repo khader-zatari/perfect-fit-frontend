@@ -5,23 +5,16 @@ import SelectMultiple from "react-native-select-multiple";
 
 const { height, width } = Dimensions.get("window");
 const AdminAddProduct = (props) => {
-    const personTypes = ["Men", "Women", "Kids"];
-    const [personType, setPersonType] = useState([]);
-    const personTypeFun = (selected) => {
-        setPersonType(selected);
-        console.log(personType);
-    };
-
-    const tShirtSizes = ["S", "L", "XL", "XXL"];
-    const [tShirtSize, setTShirtSize] = useState([]);
-    const tShirtSizeFun = (selected) => {
-        setTShirtSize(selected);
-        console.log(tShirtSize);
-    };
     const categories = ["t-shirts", "pants"];
-    const [category, setCategory] = useState(null);
     const colors = ["white", "black", "blue", "grey"];
+
+    const [category, setCategory] = useState(null);
     const [color, setColor] = useState(null);
+    const [brand, setBrand] = useState(null);
+    const [name, setName] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [price, setPrice] = useState(null);
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -31,19 +24,19 @@ const AdminAddProduct = (props) => {
                 <View>
                     <View style={styles.input}>
                         <Text style={{ paddingVertical: 10, fontSize: 11 }}>Brand</Text>
-                        <TextInput style={styles.TextInput} placeholder="Brand" id="Brand" name="Brand" />
+                        <TextInput style={styles.TextInput} placeholder="Brand" id="Brand" name="Brand" onChangeText={(text) => setBrand(text)} />
                     </View>
                     <View style={styles.input}>
                         <Text style={{ paddingVertical: 10, fontSize: 11 }}>name</Text>
-                        <TextInput style={styles.TextInput} placeholder="name" id="name" name="name" />
+                        <TextInput style={styles.TextInput} placeholder="name" id="name" name="name" onChangeText={(text) => setName(text)} />
                     </View>
                     <View style={styles.input}>
                         <Text style={{ paddingVertical: 10, fontSize: 11 }}>description</Text>
-                        <TextInput style={styles.TextInput} placeholder="description" id="description" name="description" />
+                        <TextInput style={styles.TextInput} placeholder="description" id="description" name="description" onChangeText={(text) => setDescription(text)} />
                     </View>
                     <View style={styles.input}>
                         <Text style={{ paddingVertical: 10, fontSize: 11 }}>price</Text>
-                        <TextInput style={styles.TextInput} placeholder="price" id="price" name="price" />
+                        <TextInput style={styles.TextInput} placeholder="price" id="price" name="price" onChangeText={(text) => setPrice(text)} />
                     </View>
                     <View>
                         <Select
@@ -89,7 +82,7 @@ const AdminAddProduct = (props) => {
                             style={styles.button}
                             size="12"
                             onPress={() => {
-                                props.navigation.navigate("AdminAddProductSecond");
+                                props.navigation.navigate("AdminAddProductSecond", { description: description, price: price, color: color, category: category, brand: brand, name: name });
                             }}
                         >
                             <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>NEXT STEP</Text>

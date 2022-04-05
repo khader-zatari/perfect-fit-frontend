@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SingleProduct from "../Screens/Products/SingleProduct";
 
-import MenWomenKids from "../Screens/Products/MenWomenKids";
+import MenWomenKids from "../Screens/Openning/MenWomenKids";
 import ProductContainer from "../Screens/Products/ProductContainer";
-import StoreList from "../Screens/Products/StoreList";
+import StoreList from "../Screens/Openning/StoreList";
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
     return (

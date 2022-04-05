@@ -15,6 +15,7 @@ const Main = () => {
                 keyboardHidesTabBar: true,
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: "#e91e63",
+                headerShown: false,
             }}
         >
             <Tab.Screen
