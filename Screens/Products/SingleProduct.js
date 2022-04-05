@@ -14,7 +14,7 @@ const SingleProduct = (props) => {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.imageContainer}>
-                        <Image style={styles.image} resizeMode="contain" source={require("../../assets/1638427112t-shirt-png.png")} />
+                        <Image style={styles.image} resizeMode="contain" source={{ uri: product.image ? product.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} />
                     </View>
                     <View style={styles.secondPart}>
                         <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>{product.name}</Text>
