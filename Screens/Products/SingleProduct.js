@@ -21,6 +21,7 @@ const SingleProduct = (props) => {
                         <View style={styles.selectContainer}>
                             <View style={styles.selectLeft}>
                                 <Select
+                                    key={"Size"}
                                     selectedValue={size}
                                     accessibilityLabel="Size"
                                     placeholder="Size"
@@ -33,12 +34,13 @@ const SingleProduct = (props) => {
                                     onValueChange={(size) => setSize(size)}
                                 >
                                     {product.size.map((item) => {
-                                        return <Select.Item label={item} value={item} />;
+                                        return <Select.Item label={item} value={item} key={item} />;
                                     })}
                                 </Select>
                             </View>
                             <View style={styles.selectRight}>
                                 <Select
+                                    key={"Color"}
                                     selectedValue={color}
                                     accessibilityLabel="Color"
                                     placeholder="Color"
@@ -51,7 +53,7 @@ const SingleProduct = (props) => {
                                     onValueChange={(color) => setColor(color)}
                                 >
                                     {product.color.map((item) => {
-                                        return <Select.Item label={item} value={item} />;
+                                        return <Select.Item label={item} value={item} key={item} />;
                                     })}
                                 </Select>
                             </View>

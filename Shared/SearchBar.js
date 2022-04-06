@@ -3,7 +3,7 @@ import { VStack, Input, Button, IconButton, Icon, Text, NativeBaseProvider, Cent
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { View } from "react-native";
-const SearchBar = () => {
+const SearchBar = (props) => {
     return (
         <Center flex={1} px="2">
             <VStack

@@ -5,34 +5,37 @@ import ProductCartList from "./ProductCartList";
 import { Button } from "native-base";
 import { connect } from "react-redux";
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 const { height } = Dimensions.get("window");
 
 const Cart = (props) => {
     return (
-        <ScrollView>
-            <View style={styles.Container}>
-                {props.cartItems.map((item) => {
-                    //return <ProductCartList item={item} />;
-                    return <ProductCartCard item={item} />;
-                })}
-            </View>
-            <View style={styles.priceAndButton}>
-                <View style={styles.price}>
-                    <Text>Total 200$</Text>
+        <SafeAreaView edges={["top", "left", "right"]}>
+            <ScrollView>
+                <View style={styles.Container}>
+                    {props.cartItems.map((item) => {
+                        //return <ProductCartList item={item} />;
+                        return <ProductCartCard item={item} />;
+                    })}
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        style={styles.button}
-                        size="16"
-                        onPress={() => {
-                            props.clearCart();
-                        }}
-                    >
-                        Buy with one click
-                    </Button>
+                <View style={styles.priceAndButton}>
+                    <View style={styles.price}>
+                        <Text>Total 200$</Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            style={styles.button}
+                            size="16"
+                            onPress={() => {
+                                props.clearCart();
+                            }}
+                        >
+                            Buy with one click
+                        </Button>
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

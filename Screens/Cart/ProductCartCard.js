@@ -6,6 +6,7 @@ const { width, height } = Dimensions.get("window");
 const ProductCartCard = (props) => {
     console.log(props.item.product);
     return (
+        
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <Image source={require("../../assets/1638427112t-shirt-png.png")} style={styles.image} />
