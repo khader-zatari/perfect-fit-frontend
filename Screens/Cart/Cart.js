@@ -27,7 +27,7 @@ const Cart = (props) => {
                         </View>
                         <View style={styles.priceAndButton}>
                             <View style={styles.price}>
-                                <Text>Total 200$</Text>
+                                <Text>{total}$</Text>
                             </View>
                             <View style={styles.buttonContainer}>
                                 <Button
