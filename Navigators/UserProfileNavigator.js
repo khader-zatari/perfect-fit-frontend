@@ -12,6 +12,7 @@ import AdminProducts from "../Screens/User/AdminProducts";
 import AdminAddProduct from "../Screens/User/AdminAddProduct";
 import AdminAddProductSecond from "../Screens/User/AdminAddProductSecond";
 import SingleOrder from "../Screens/User/SingleOrder";
+import AccountInformation from "../Screens/User/AccountInformation";
 const Stack = createNativeStackNavigator();
 
 const UserProfileNavigator = () => {
@@ -37,6 +38,7 @@ const UserProfileNavigator = () => {
             <Stack.Screen name="AdminAddProduct" component={AdminAddProduct} />
             <Stack.Screen name="AdminAddProductSecond" component={AdminAddProductSecond} />
             <Stack.Screen name="SingleOrder" component={SingleOrder} />
+            <Stack.Screen name="AccountInformation" component={AccountInformation} />
         </Stack.Navigator>
     );
 };

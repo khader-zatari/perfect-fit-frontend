@@ -1,53 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "native-base";
 import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { height, width } = Dimensions.get("window");
-const ShippingAddress = () => {
+const ShippingAddress = (props) => {
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const saveAddress = () => {
+        let address = {
+            name: name,
+            phone: phoneNumber,
+            address: address,
+            zip: zipCode,
+            city: city,
+        };
+        //set a new user in the database that contain the user object then go the login page
+        axios
+            .put(`${baseURL}users/shippingAddress/${props._id}`, address)
+            .then((res) => {
+                if (res.status == 200) {
+                    console.log("success");
+
+                    setTimeout(() => {
+                        props.navigation.navigate("Userpage");
+                    }, 500);
+                }
+            })
+            .catch((error) => {
+                console.log("error");
+            });
+    };
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <Text style={styles.headerText}>Shipping Address</Text>
+        <SafeAreaView>
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.headerText}>Shipping Address</Text>
+                    </View>
+                    <View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>Full name</Text>
+                            <TextInput style={styles.TextInput} placeholder="Full name" id="fullName" name="fullName" onChangeText={(text) => setName(text.toLowerCase())} />
+                        </View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>Address</Text>
+                            <TextInput style={styles.TextInput} placeholder="Address" id="address" name="address" onChangeText={(text) => setAddress(text.toLowerCase())} />
+                        </View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>City</Text>
+                            <TextInput style={styles.TextInput} placeholder="City" id="city" name="city" onChangeText={(text) => setCity(text.toLowerCase())} />
+                        </View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>Zip Code</Text>
+                            <TextInput style={styles.TextInput} placeholder="Zip Code" id="zipCode" name="zipCode" keyboardType={"numeric"} onChangeText={(text) => setZipCode(text)} />
+                        </View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>Phone Number</Text>
+                            <TextInput style={styles.TextInput} placeholder="Phone Number" id="phoneNumber" name="phoneNumber" keyboardType={"numeric"} onChangeText={(text) => setName(text)} />
+                        </View>
+                    </View>
+                    <View style={styles.secondPart}>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                size="12"
+                                onPress={() => {
+                                    saveAddress();
+                                }}
+                            >
+                                <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE ADDRESS</Text>
+                            </Button>
+                        </View>
+                    </View>
                 </View>
-                <View>
-                    <View style={styles.input}>
-                        <Text style={{ paddingVertical: 10, fontSize: 11 }}>Full name</Text>
-                        <TextInput style={styles.TextInput} placeholder="Full name" id="fullName" name="fullName" />
-                    </View>
-                    <View style={styles.input}>
-                        <Text style={{ paddingVertical: 10, fontSize: 11 }}>Address</Text>
-                        <TextInput style={styles.TextInput} placeholder="Address" id="address" name="address" />
-                    </View>
-                    <View style={styles.input}>
-                        <Text style={{ paddingVertical: 10, fontSize: 11 }}>City</Text>
-                        <TextInput style={styles.TextInput} placeholder="City" id="city" name="city" />
-                    </View>
-                    <View style={styles.input}>
-                        <Text style={{ paddingVertical: 10, fontSize: 11 }}>Zip Code</Text>
-                        <TextInput style={styles.TextInput} placeholder="Zip Code" id="zipCode" name="zipCode" />
-                    </View>
-                    <View style={styles.input}>
-                        <Text style={{ paddingVertical: 10, fontSize: 11 }}>Phone Number</Text>
-                        <TextInput style={styles.TextInput} placeholder="Phone Number" id="phoneNumber" name="phoneNumber" />
-                    </View>
-                </View>
-                <View style={styles.secondPart}>
-                    <View style={styles.buttonContainer}>
-                        <Button style={styles.button} size="12" onPress={() => {}}>
-                            <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE ADDRESS</Text>
-                        </Button>
-                    </View>
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "90%",
-        height: height / 2,
+
         alignSelf: "center",
     },
     headerText: {
