@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 const { width } = Dimensions.get("window");
 const ProductList = (props) => {
     const products = props.products;
-    useEffect(() => {});
+
     return (
         <View style={styles.container}>
             {products.map((item) => {

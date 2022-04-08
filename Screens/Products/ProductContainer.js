@@ -5,7 +5,6 @@ import ProductCard from "./ProductCard.js";
 import ProductList from "./ProductList.js";
 import SearchedProducts from "./SearchedProducts.js";
 import SearchBar from "../../Shared/SearchBar";
-import SingleProduct from "./SingleProduct.js";
 import Header from "../../Shared/Header.js";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
@@ -29,7 +28,7 @@ const ProductContainer = (props) => {
     //         return item.personType == personType;
     //     })
     // );
-
+    
     //this in the database rest api
     const [products, setProducts] = useState([]);
 
@@ -69,25 +68,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProductContainer;
-
-{
-    /* <View style={{ flex: 1 }}>
-                    <SearchedProducts />
-                </View> */
-}
-
-{
-    /* /*/
-    //////////////*/ */
-    // <SearchBar />
-    // </View>
-    // <View>
-    //     <Banner />
-    // </View>
-    // <View style={{ flexDirection: "row" }}>
-    //     <ProductList />
-    // </View>
-    // <View>
-    //     <SingleProduct />
-    // </View>
-}
