@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 const SingleOrder = (props) => {
-    console.log(props.item.product);
+
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
