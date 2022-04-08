@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Button, Pressable, Modal } from "react-native";
+import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Button, Pressable, Modal, ScrollView } from "react-native";
 import ProductCard from "../Products/ProductCard";
 import Icon from "react-native-vector-icons/FontAwesome";
 

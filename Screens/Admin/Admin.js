@@ -1,27 +1,35 @@
 import React from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Button } from "native-base";
-import AdminProductList from "./AdminProductList";
-const AdminProducts = (props) => {
-    const productsJson = require("../../assets//products.json");
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const Admin = (props) => {
     return (
         <View style={styles.container}>
-            <View >
+            <SafeAreaView>
                 <View style={styles.buttonContainer}>
                     <Button
                         style={styles.button}
                         size="16"
                         onPress={() => {
-                            props.navigation.navigate("AdminAddProduct");
+                            props.navigation.navigate("AdminOrders");
                         }}
                     >
-                        Add Product
+                        Orders
                     </Button>
                 </View>
-            </View>
-            <ScrollView style={styles.container} bounces={true}>
-                <AdminProductList products={productsJson} />
-            </ScrollView>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        style={styles.button}
+                        size="16"
+                        onPress={() => {
+                            props.navigation.navigate("AdminProducts");
+                        }}
+                    >
+                        Products
+                    </Button>
+                </View>
+            </SafeAreaView>
         </View>
     );
 };
@@ -41,4 +49,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AdminProducts;
+export default Admin;
