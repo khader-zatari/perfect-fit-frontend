@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react
 import SelectMultiple from "react-native-select-multiple";
 import baseURL from "../../assets/baseUrl";
 import axios from "axios";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { height, width } = Dimensions.get("window");
 const AdminAddProductSecond = (props) => {
@@ -31,7 +32,8 @@ const AdminAddProductSecond = (props) => {
         let formData = new FormData();
 
         //put the data into list to send it to the sever
-        formData.append("image", "https://pfakhader.s3.eu-west-1.amazonaws.com/uploads/DEE801C8-A40C-44E3-A370-080DBB811FF3.jpg");
+        formData.append("images", information.images);
+        formData.append("image", information.images[0]);
         formData.append("name", information.name);
         formData.append("brand", information.brand);
         formData.append("price", information.price);
@@ -51,11 +53,6 @@ const AdminAddProductSecond = (props) => {
             "personType",
             pantsSize.map((item) => item.value)
         );
-
-
-           
-            
-
 
         const config = {
             headers: {
@@ -83,42 +80,44 @@ const AdminAddProductSecond = (props) => {
     };
 
     return (
-        <View style={styles.container}>
-            <ScrollView>
-                <View style={{ marginVertical: 20 }}>
-                    <SelectMultiple items={personTypes} selectedItems={personType} onSelectionsChange={personTypeFun} />
-                </View>
-
-                <View style={{ marginVertical: 20 }}>
-                    <SelectMultiple items={tShirtSizes} selectedItems={tShirtSize} onSelectionsChange={tShirtSizeFun} />
-                </View>
-
-                <View style={{ marginVertical: 20 }}>
-                    <SelectMultiple items={pantsSizes} selectedItems={pantsSize} onSelectionsChange={pantsSizeFun} />
-                </View>
-
-                <View style={styles.secondPart}>
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            style={styles.button}
-                            size="12"
-                            onPress={() => {
-                                addProduct();
-                            }}
-                        >
-                            <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE PRODUCT</Text>
-                        </Button>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <ScrollView>
+                    <View style={{ marginVertical: 20 }}>
+                        <SelectMultiple items={personTypes} selectedItems={personType} onSelectionsChange={personTypeFun} />
                     </View>
-                </View>
-            </ScrollView>
-        </View>
+
+                    <View style={{ marginVertical: 20 }}>
+                        <SelectMultiple items={tShirtSizes} selectedItems={tShirtSize} onSelectionsChange={tShirtSizeFun} />
+                    </View>
+
+                    <View style={{ marginVertical: 20 }}>
+                        <SelectMultiple items={pantsSizes} selectedItems={pantsSize} onSelectionsChange={pantsSizeFun} />
+                    </View>
+
+                    <View style={styles.secondPart}>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                size="12"
+                                onPress={() => {
+                                    addProduct();
+                                }}
+                            >
+                                <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE PRODUCT</Text>
+                            </Button>
+                        </View>
+                    </View>
+                    <View style={styles.photoButton}></View>
+                </ScrollView>
+            </View>
+        </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         width: "90%",
-        height: height / 2,
+
         alignSelf: "center",
     },
     headerText: {
