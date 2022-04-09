@@ -2,18 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Button } from "native-base";
 import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
+import baseURL from "../../assets/baseUrl";
 
 const { height, width } = Dimensions.get("window");
 const LogIn = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [user, setUser] = useState(null);
 
-    const handleSubmit = () => {
-        const user = {
-            email,
-            password,
+    const check = () => {
+        const theEmail = {
+            email: email,
+            password: password,
         };
+
+        axios
+            .post(`${baseURL}users/login`, theEmail)
+            .then((res) => {
+                if (res.status == 200 || res.status == 201) {
+                    setTimeout(() => {
+                        setUser(res.data);
+                        props.navigation.navigate("Userpage", { user: user });
+                    }, 500);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
     return (
         <SafeAreaView>
@@ -34,14 +51,7 @@ const LogIn = (props) => {
                     </View>
                     <View style={styles.secondPart}>
                         <View style={styles.buttonContainer}>
-                            <Button
-                                style={styles.button}
-                                size="12"
-                                onPress={() => {
-                                    //check email and password nav to user page else to error
-                                    props.navigation.navigate("Userpage");
-                                }}
-                            >
+                            <Button style={styles.button} size="12" onPress={check}>
                                 <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>LOGIN</Text>
                             </Button>
 

@@ -70,7 +70,7 @@ const AdminAddProductSecond = (props) => {
                 if (res.status == 200 || res.status == 201) {
                     console.log("New Product added");
                     setTimeout(() => {
-                        // props.navigation.navigate("Products");
+                        props.navigation.navigate("AdminProducts");
                     }, 500);
                 }
             })
