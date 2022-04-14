@@ -9,10 +9,12 @@ import Header from "../../Shared/Header.js";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import baseURL from "../../assets/baseUrl";
+import { connect } from "react-redux";
 
 const { height } = Dimensions.get("window");
 
 const ProductContainer = (props) => {
+
     // const productsJson = require("../../assets/products.json");
     const store = props.route.params.store;
 
@@ -28,11 +30,12 @@ const ProductContainer = (props) => {
     //         return item.personType == personType;
     //     })
     // );
-    
+
     //this in the database rest api
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        console.log(props.theUser);
         axios
             .get(`${baseURL}products/store/${personType}/${store._id}`)
             .then((res) => setProducts(res.data))
@@ -61,10 +64,17 @@ const ProductContainer = (props) => {
         </SafeAreaView>
     );
 };
+const mapStateToProps = (state) => {
+    const { theUser } = state;
+    return {
+        theUser: theUser,
+    };
+};
 const styles = StyleSheet.create({
     container: {
         marginTop: height / 20,
     },
 });
 
-export default ProductContainer;
+// export default ProductContainer;
+export default connect(mapStateToProps, null)(ProductContainer);

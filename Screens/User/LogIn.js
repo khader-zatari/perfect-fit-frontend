@@ -4,6 +4,8 @@ import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import baseURL from "../../assets/baseUrl";
+import { THEUSERLOGIN } from "../../Redux/constants";
+import { connect } from "react-redux";
 
 const { height, width } = Dimensions.get("window");
 const LogIn = (props) => {
@@ -24,7 +26,10 @@ const LogIn = (props) => {
                 if (res.status == 200 || res.status == 201) {
                     setTimeout(() => {
                         setUser(res.data);
-                        props.navigation.navigate("Userpage", { user: user });
+                        // props.navigation.navigate("Userpage", { user: user });
+                        props.enterTheApp(res.data);
+                        // props.navigation.navigate("Userpage");
+                        // console.log(props.theUser);
                     }, 500);
                 }
             })
@@ -32,6 +37,7 @@ const LogIn = (props) => {
                 console.log(error);
             });
     };
+
     return (
         <SafeAreaView>
             <ScrollView>
@@ -71,6 +77,22 @@ const LogIn = (props) => {
         </SafeAreaView>
     );
 };
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        enterTheApp: (user) => {
+            dispatch({ type: THEUSERLOGIN, payload:  user  });
+        },
+    };
+};
+
+const mapStateToProps = (state) => {
+    const { theUser } = state;
+    return {
+        theUser: theUser,
+    };
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -106,4 +128,4 @@ const styles = StyleSheet.create({
     secondPart: {},
 });
 
-export default LogIn;
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
