@@ -28,7 +28,7 @@ const LogIn = (props) => {
                         setUser(res.data);
                         // props.navigation.navigate("Userpage", { user: user });
                         props.enterTheApp(res.data);
-                        // props.navigation.navigate("Userpage");
+                        props.navigation.navigate("Userpage");
                         // console.log(props.theUser);
                     }, 500);
                 }
@@ -81,7 +81,7 @@ const LogIn = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         enterTheApp: (user) => {
-            dispatch({ type: THEUSERLOGIN, payload:  user  });
+            dispatch({ type: THEUSERLOGIN, payload: user });
         },
     };
 };

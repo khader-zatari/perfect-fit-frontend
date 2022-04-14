@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { Button } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { connect } from "react-redux";
 const { height } = Dimensions.get("window");
 const UserProfile = (props) => {
-    const user = props.route.params.user;
+    const user = props.theUser[0];
     console.log(user);
     return (
         <View style={styles.container}>
             <SafeAreaView>
                 <View style={styles.headerContainer}>
-                    <Text style={styles.headerText}>Hello,name </Text>
+                    <Text style={styles.headerText}>Hello,{user.name} </Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
@@ -82,6 +83,14 @@ const UserProfile = (props) => {
         </View>
     );
 };
+
+const mapStateToProps = (state) => {
+    const { theUser } = state;
+    return {
+        theUser: theUser,
+    };
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -107,4 +116,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default UserProfile;
+// export default UserProfile;
+export default connect(mapStateToProps, null)(UserProfile);
