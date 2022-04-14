@@ -4,18 +4,20 @@ import { Button } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 const { height } = Dimensions.get("window");
 const UserProfile = (props) => {
+    const user = props.route.params.user;
+    console.log(user);
     return (
         <View style={styles.container}>
             <SafeAreaView>
                 <View style={styles.headerContainer}>
-                    <Text style={styles.headerText}>props.name</Text>
+                    <Text style={styles.headerText}>Hello,name </Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
                         style={styles.button}
                         size="16"
                         onPress={() => {
-                            props.navigation.navigate("ShippingAddress");
+                            props.navigation.navigate("ShippingAddress", { user: user });
                         }}
                     >
                         Shipping Address

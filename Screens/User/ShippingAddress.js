@@ -4,12 +4,15 @@ import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const { height, width } = Dimensions.get("window");
+
 const ShippingAddress = (props) => {
+    const user = props.route.params.user;
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    
     const saveAddress = () => {
         let address = {
             name: name,
@@ -20,13 +23,13 @@ const ShippingAddress = (props) => {
         };
         //set a new user in the database that contain the user object then go the login page
         axios
-            .put(`${baseURL}users/shippingAddress/${props._id}`, address)
+            .put(`${baseURL}users/shippingAddress/${user._id}`, address)
             .then((res) => {
                 if (res.status == 200) {
                     console.log("success");
 
                     setTimeout(() => {
-                        props.navigation.navigate("Userpage");
+                        props.navigation.navigate("Userpage", { user: user });
                     }, 500);
                 }
             })
