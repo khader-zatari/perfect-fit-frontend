@@ -10,7 +10,7 @@ const { height } = Dimensions.get("window");
 
 const Cart = (props) => {
     var total = 0;
-
+    console.log(props.theUser);
     props.cartItems.forEach((cart) => {
         return (total += cart.product.price);
     });
@@ -54,9 +54,10 @@ const Cart = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    const { cartItems } = state;
+    const { cartItems, theUser } = state;
     return {
         cartItems: cartItems,
+        theUser: theUser,
     };
 };
 const mapDispatchToProps = (dispatch) => {
