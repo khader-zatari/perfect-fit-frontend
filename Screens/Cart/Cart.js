@@ -29,16 +29,29 @@ const Cart = (props) => {
                             <View style={styles.price}>
                                 <Text>{total}$</Text>
                             </View>
+
                             <View style={styles.buttonContainer}>
-                                <Button
-                                    style={styles.button}
-                                    size="16"
-                                    onPress={() => {
-                                        props.clearCart();
-                                    }}
-                                >
-                                    Buy with one click
-                                </Button>
+                                {props.theUser.length ? (
+                                    <Button
+                                        style={styles.button}
+                                        size="16"
+                                        onPress={() => {
+                                            props.clearCart();
+                                        }}
+                                    >
+                                        Buy with one click
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        style={styles.button}
+                                        size="16"
+                                        onPress={() => {
+                                            props.navigation.navigate("UserProfile");
+                                        }}
+                                    >
+                                        LogIn
+                                    </Button>
+                                )}
                             </View>
                         </View>
                     </View>
