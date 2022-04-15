@@ -4,6 +4,7 @@ import { Button } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Admin = (props) => {
+    const user = props.route.params.user;
     return (
         <View style={styles.container}>
             <SafeAreaView>
@@ -23,7 +24,7 @@ const Admin = (props) => {
                         style={styles.button}
                         size="16"
                         onPress={() => {
-                            props.navigation.navigate("AdminProducts");
+                            props.navigation.navigate("AdminProducts", { user: user });
                         }}
                     >
                         Products

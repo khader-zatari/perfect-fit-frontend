@@ -29,48 +29,30 @@ const AdminAddProductSecond = (props) => {
     const personTypes = ["Men", "Women", "Kids"];
 
     const addProduct = () => {
-        let formData = new FormData();
-
-        //put the data into list to send it to the sever
-        formData.append("images", information.images);
-        formData.append("image", information.images[0]);
-        formData.append("name", information.name);
-        formData.append("brand", information.brand);
-        formData.append("price", information.price);
-        formData.append("description", information.description);
-        formData.append("category", information.category);
-        formData.append("color", information.color);
-        formData.append("admin", "61da966ba0b2f1d3bcb29434");
-        formData.append(
-            "tShirtSize",
-            tShirtSize.map((item) => item.value)
-        );
-        formData.append(
-            "pantsSize",
-            personType.map((item) => item.value)
-        );
-        formData.append(
-            "personType",
-            pantsSize.map((item) => item.value)
-        );
-
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
+        let data = {
+            images: information.images,
+            image: information.images[0],
+            name: information.name,
+            brand: information.brand,
+            price: information.price,
+            description: information.description,
+            category: information.category,
+            color: information.color,
+            admin: information.user._id,
+            size: tShirtSize.map((item) => item.value) ? tShirtSize.map((item) => item.value) : pantsSize.map((item) => item.value),
+            personType: personType.map((item) => item.value),
         };
         //if the item is not new so we want to update it.
 
         //else it's new so add a new product
 
-        console.log(formData);
         axios
-            .post(`${baseURL}products`, formData)
+            .post(`${baseURL}products`, data)
             .then((res) => {
                 if (res.status == 200 || res.status == 201) {
                     console.log("New Product added");
                     setTimeout(() => {
-                        props.navigation.navigate("AdminProducts");
+                        props.navigation.navigate("AdminProducts", { user: information.user });
                     }, 500);
                 }
             })
@@ -97,13 +79,7 @@ const AdminAddProductSecond = (props) => {
 
                     <View style={styles.secondPart}>
                         <View style={styles.buttonContainer}>
-                            <Button
-                                style={styles.button}
-                                size="12"
-                                onPress={() => {
-                                    addProduct();
-                                }}
-                            >
+                            <Button style={styles.button} size="12" onPress={addProduct}>
                                 <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE PRODUCT</Text>
                             </Button>
                         </View>

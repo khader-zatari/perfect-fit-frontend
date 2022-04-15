@@ -8,6 +8,7 @@ import { RNS3 } from "react-native-aws3";
 
 const { height, width } = Dimensions.get("window");
 const AdminAddProduct = (props) => {
+    const user = props.route.params.user;
     const categories = ["t-shirts", "pants"];
     const colors = ["white", "black", "blue", "grey"];
 
@@ -165,7 +166,7 @@ const AdminAddProduct = (props) => {
                                 style={styles.button}
                                 size="12"
                                 onPress={() => {
-                                    props.navigation.navigate("AdminAddProductSecond", { description: description, price: price, color: color, category: category, brand: brand, name: name, images: images });
+                                    props.navigation.navigate("AdminAddProductSecond", { description: description, price: price, color: color, category: category, brand: brand, name: name, images: images, user: user });
                                 }}
                             >
                                 <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>NEXT STEP</Text>

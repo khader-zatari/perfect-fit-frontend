@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Button } from "native-base";
 import AdminProductList from "../Admin/AdminProductList";
 import { SafeAreaView } from "react-native-safe-area-context";
 const AdminProducts = (props) => {
+    const user = props.route.params.user;
     const productsJson = require("../../assets//products.json");
+
+    
     return (
         <SafeAreaView>
             <ScrollView bounces={true}>
@@ -14,7 +17,7 @@ const AdminProducts = (props) => {
                             style={styles.button}
                             size="16"
                             onPress={() => {
-                                props.navigation.navigate("AdminAddProduct");
+                                props.navigation.navigate("AdminAddProduct", { user: user });
                             }}
                         >
                             Add Product

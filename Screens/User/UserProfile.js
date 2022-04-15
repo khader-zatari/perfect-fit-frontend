@@ -62,7 +62,7 @@ const UserProfile = (props) => {
                         style={styles.button}
                         size="16"
                         onPress={() => {
-                            props.navigation.navigate("Admin");
+                            props.navigation.navigate("Admin", { user: user });
                         }}
                     >
                         Admin
