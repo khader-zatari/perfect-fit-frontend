@@ -50,7 +50,7 @@ const ProductContainer = (props) => {
         <SafeAreaView>
             <ScrollView bounces={true}>
                 <View style={styles.container}>
-                    <Header />
+                    <Header logo={store.image}/>
                     <SearchBar />
                     <View>
                         <Banner />

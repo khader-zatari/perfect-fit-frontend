@@ -4,12 +4,12 @@ import { Center, Heading } from "native-base";
 
 const { height, width } = Dimensions.get("window");
 
-const Header = () => {
+const Header = (props) => {
     return (
         <View style={styles.container}>
             <Center>
                 <View style={{  height: 70, width: "100%" }}>
-                    <Image source={require("../assets/Logo.png")} style={styles.image} />
+                    <Image source={{ uri: props.logo ? props.logo : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
                 </View>
             </Center>
         </View>
