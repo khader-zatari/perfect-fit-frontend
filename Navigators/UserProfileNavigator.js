@@ -8,6 +8,7 @@ import Vto from "../Screens/User/Vto";
 import Vto1 from "../Screens/User/Vto1";
 import Admin from "../Screens/Admin/Admin";
 import AdminOrders from "../Screens/User/AdminOrders";
+import Orders from "../Screens/User/Orders";
 import AdminProducts from "../Screens/Admin/AdminProducts";
 import AdminAddProduct from "../Screens/Admin/AdminAddProduct";
 import AdminAddProductSecond from "../Screens/Admin/AdminAddProductSecond";
@@ -39,6 +40,7 @@ const UserProfileNavigator = () => {
             <Stack.Screen name="AdminAddProductSecond" component={AdminAddProductSecond} />
             <Stack.Screen name="SingleOrder" component={SingleOrder} />
             <Stack.Screen name="AccountInformation" component={AccountInformation} />
+            <Stack.Screen name="Orders" component={Orders} />
         </Stack.Navigator>
     );
 };

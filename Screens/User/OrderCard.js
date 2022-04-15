@@ -4,20 +4,17 @@ import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 const OrderCard = (props) => {
+
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.text}>order number</Text>
+                <Text style={styles.text}>order number {props._id}</Text>
             </View>
             <View>
-                <Text>03-02-2022</Text>
-            </View>
-
-            <View>
-                <Text style={styles.text}>customer name: khader</Text>
+                <Text>{props.dateOrdered}</Text>
             </View>
             <View>
-                <Text>process:pending</Text>
+                <Text>process:{props.status}</Text>
             </View>
         </View>
     );

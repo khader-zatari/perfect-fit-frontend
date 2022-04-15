@@ -68,7 +68,7 @@ const SingleProduct = (props) => {
                                 size="16"
                                 onPress={() => {
                                     // props.navigation.navigate("Just");
-                                    props.addItemToCart(product);
+                                    props.addItemToCart(product, color, size);
                                 }}
                             >
                                 Add to Cart
@@ -86,8 +86,8 @@ const SingleProduct = (props) => {
 
 const mapDispachToProps = (dispatch) => {
     return {
-        addItemToCart: (product) => {
-            dispatch({ type: ADD_TO_CART, payload: { quantity: 1, product } });
+        addItemToCart: (product, color, size) => {
+            dispatch({ type: ADD_TO_CART, payload: { quantity: 1, color, size, product } });
         },
     };
 };

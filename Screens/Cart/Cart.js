@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ProductCartCard from "./ProductCartCard";
 import ProductCartList from "./ProductCartList";
@@ -6,14 +6,67 @@ import { Button } from "native-base";
 import { connect } from "react-redux";
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
+import baseURL from "../../assets/baseUrl";
 const { height } = Dimensions.get("window");
 
 const Cart = (props) => {
+    const [orderItems, setOrderItems] = useState();
+    const [address, setAddress] = useState();
+    const [city, setCity] = useState();
+    const [zip, setZip] = useState();
+    const [phone, setPhone] = useState();
+    const [user, setUser] = useState();
+    const [shop, setShop] = useState();
+
+    useEffect(() => {
+        setOrderItems(props.cartItems);
+
+        return () => {
+            setOrderItems();
+        };
+    }, []);
+
     var total = 0;
-    console.log(props.theUser);
+
     props.cartItems.forEach((cart) => {
         return (total += cart.product.price);
     });
+    const constructOrder = () => {
+        // setAddress();
+        // setCity();
+        // setZip();
+        // setPhone();
+        // setUser();
+        // setShop();
+        let order = {
+            orderItems,
+            shippingAddress: props.theUser[0].address,
+            zip: props.theUser[0].zip,
+            city: props.theUser[0].city,
+            phone: props.theUser[0].receiverPhone,
+            status: "3",
+            dateOrdered: Date.now(),
+            user: props.theUser[0]._id,
+            shop: "624cb83981409859c5fd9187",
+        };
+
+        axios
+            .post(`${baseURL}orders`, order)
+            .then((res) => {
+                if (res.status == 200 || res.status == 201) {
+                    console.log("success");
+                    setTimeout(() => {
+                        props.clearCart();
+                        props.navigation.navigate("Cart");
+                    }, 500);
+                }
+            })
+            .catch((error) => {
+                console.log("Something went wrong");
+            });
+    };
+
     return (
         <SafeAreaView edges={["top", "left", "right"]}>
             <ScrollView>
@@ -32,13 +85,7 @@ const Cart = (props) => {
 
                             <View style={styles.buttonContainer}>
                                 {props.theUser.length ? (
-                                    <Button
-                                        style={styles.button}
-                                        size="16"
-                                        onPress={() => {
-                                            props.clearCart();
-                                        }}
-                                    >
+                                    <Button style={styles.button} size="16" onPress={constructOrder}>
                                         Buy with one click
                                     </Button>
                                 ) : (
