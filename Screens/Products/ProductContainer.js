@@ -14,7 +14,6 @@ import { connect } from "react-redux";
 const { height } = Dimensions.get("window");
 
 const ProductContainer = (props) => {
-
     // const productsJson = require("../../assets/products.json");
     const store = props.route.params.store;
 
@@ -33,13 +32,14 @@ const ProductContainer = (props) => {
 
     //this in the database rest api
     const [products, setProducts] = useState([]);
-
+    const [bannerImages, setBannerImages] = useState([]);
+    const bannerData = ["https://i.pinimg.com/originals/79/7d/fc/797dfc84d7a2149d4b77769c213030f4.jpg", "https://creativemachine.co/wp-content/uploads/2020/03/ecommerce_men_s_clothing_banner_template_8_1200x628.jpg", "https://i.pinimg.com/originals/af/16/1a/af161a824e6c3ed7e1ec18f2d94b650c.jpg"];
     useEffect(() => {
-        console.log(props.theUser);
         axios
             .get(`${baseURL}products/store/${personType}/${store._id}`)
             .then((res) => setProducts(res.data))
             .catch((error) => console.log(error.response.data));
+        setBannerImages(store.bannerImages ? store.bannerImages : ["https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png"]);
 
         return () => {
             setProducts();
@@ -50,10 +50,10 @@ const ProductContainer = (props) => {
         <SafeAreaView>
             <ScrollView bounces={true}>
                 <View style={styles.container}>
-                    <Header logo={store.image}/>
+                    <Header logo={store.image} />
                     <SearchBar />
                     <View>
-                        <Banner />
+                        <Banner bannerImages={bannerImages} />
                     </View>
 
                     <View style={{ flexDirection: "row" }}>
