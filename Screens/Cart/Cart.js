@@ -33,12 +33,6 @@ const Cart = (props) => {
         return (total += cart.product.price);
     });
     const constructOrder = () => {
-        // setAddress();
-        // setCity();
-        // setZip();
-        // setPhone();
-        // setUser();
-        // setShop();
         let order = {
             orderItems,
             shippingAddress: props.theUser[0].address,
@@ -48,9 +42,9 @@ const Cart = (props) => {
             status: "3",
             dateOrdered: Date.now(),
             user: props.theUser[0]._id,
-            shop: "624cb83981409859c5fd9187",
+            shop: orderItems[0].product.Admin,
         };
-
+        console.log(order);
         axios
             .post(`${baseURL}orders`, order)
             .then((res) => {
@@ -75,7 +69,7 @@ const Cart = (props) => {
                         <View style={styles.Container}>
                             {props.cartItems.map((item) => {
                                 //return <ProductCartList item={item} />;
-                                return <ProductCartCard item={item} />;
+                                return <ProductCartCard item={item} key={Math.random()} />;
                             })}
                         </View>
                         <View style={styles.priceAndButton}>
