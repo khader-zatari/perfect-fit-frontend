@@ -4,17 +4,22 @@ import { Select, Box, CheckIcon, Center, NativeBaseProvider, Button, Row } from 
 import { connect } from "react-redux";
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Banner from "../../Shared/Banner";
 const { width, height } = Dimensions.get("window");
 const SingleProduct = (props) => {
     const product = props.route.params.product;
     let [color, setColor] = useState("");
     let [size, setSize] = useState("");
+    const [bannerImages, setBannerImages] = useState(product.images ? product.images : ["https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png"]);
     return (
         <SafeAreaView edges={["top", "left", "right"]}>
             <ScrollView>
                 <View style={styles.container}>
-                    <View style={styles.imageContainer}>
+                    {/* <View style={styles.imageContainer}>
                         <Image style={styles.image} resizeMode="contain" source={{ uri: product.image ? product.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} />
+                    </View> */}
+                    <View>
+                        <Banner bannerImages={bannerImages} />
                     </View>
                     <View style={styles.secondPart}>
                         <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>{product.name}</Text>
