@@ -40,10 +40,9 @@ const AdminProductList = (props) => {
                 </View>
             </Modal>
             {products.map((item) => {
-                console.log(item);
                 return (
                     <TouchableOpacity onLongPress={() => setModalVisible(!modalVisible)}>
-                        <ProductCard {...item} />
+                        <ProductCard {...item} key = {item._id} />
                     </TouchableOpacity>
                 );
             })}

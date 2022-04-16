@@ -1,13 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Button } from "native-base";
 import AdminProductList from "../Admin/AdminProductList";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
+import baseURL from "../../assets/baseUrl";
+
 const AdminProducts = (props) => {
     const user = props.route.params.user;
     const productsJson = require("../../assets//products.json");
 
-    
+    const [products, setProducts] = useState(null);
+
+    useEffect(() => {
+        axios.get(`${baseURL}products/store/${user._id}`).then((res) => {
+            setProducts(res.data);
+            console.log(res.data);
+        });
+        return () => {
+            setProducts();
+        };
+    }, []);
     return (
         <SafeAreaView>
             <ScrollView bounces={true}>
@@ -23,9 +36,7 @@ const AdminProducts = (props) => {
                             Add Product
                         </Button>
                     </View>
-                    <View>
-                        <AdminProductList products={productsJson} />
-                    </View>
+                    <View>{products != null ? <AdminProductList products={products} /> : null}</View>
                 </View>
             </ScrollView>
         </SafeAreaView>

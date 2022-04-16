@@ -18,7 +18,6 @@ const AdminAddProduct = (props) => {
     const [name, setName] = useState(null);
     const [description, setDescription] = useState(null);
     const [price, setPrice] = useState(null);
-
     const [images, setImages] = useState([]);
     const [temp, setTemp] = useState(null);
 
@@ -117,7 +116,7 @@ const AdminAddProduct = (props) => {
                                 onValueChange={(category) => setCategory(category)}
                             >
                                 {categories.map((item) => {
-                                    return <Select.Item label={item} value={item} />;
+                                    return <Select.Item label={item} value={item} key = {item} />;
                                 })}
                             </Select>
                         </View>
@@ -135,7 +134,7 @@ const AdminAddProduct = (props) => {
                                 onValueChange={(color) => setColor(color)}
                             >
                                 {colors.map((item) => {
-                                    return <Select.Item label={item} value={item} />;
+                                    return <Select.Item label={item} value={item} key = {item} />;
                                 })}
                             </Select>
                         </View>
