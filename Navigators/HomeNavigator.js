@@ -6,6 +6,8 @@ import SingleProduct from "../Screens/Products/SingleProduct";
 import MenWomenKids from "../Screens/Openning/MenWomenKids";
 import ProductContainer from "../Screens/Products/ProductContainer";
 import StoreList from "../Screens/Openning/StoreList";
+import { Button, Text } from "react-native";
+
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
     return (
@@ -15,12 +17,29 @@ const HomeNavigator = () => {
                 contentStyle: {
                     backgroundColor: "#FFFFFF",
                 },
-                headerShown: false,
             }}
         >
-            <Stack.Screen name="MenWomenKids" component={MenWomenKids} />
-            <Stack.Screen name="stores" component={StoreList} />
-            <Stack.Screen name="ProductContainer" component={ProductContainer} />
+            <Stack.Screen
+                name="MenWomenKids"
+                component={MenWomenKids}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="stores"
+                component={StoreList}
+                options={{
+                    headerShown: true,
+                }}
+            />
+            <Stack.Screen
+                name="ProductContainer"
+                component={ProductContainer}
+                options={{
+                    headerShown: true,
+                }}
+            />
             <Stack.Screen name="SingleProduct" component={SingleProduct} />
         </Stack.Navigator>
     );
