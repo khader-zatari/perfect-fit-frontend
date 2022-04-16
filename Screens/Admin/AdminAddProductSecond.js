@@ -39,7 +39,7 @@ const AdminAddProductSecond = (props) => {
             category: information.category,
             color: information.color,
             admin: information.user._id,
-            size: tShirtSize.map((item) => item.value) ? tShirtSize.map((item) => item.value) : pantsSize.map((item) => item.value),
+            size: tShirtSize.map((item) => item.value).length > 0 ? tShirtSize.map((item) => item.value) : pantsSize.map((item) => item.value),
             personType: personType.map((item) => item.value),
         };
         //if the item is not new so we want to update it.

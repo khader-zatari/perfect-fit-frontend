@@ -10,7 +10,7 @@ const { height, width } = Dimensions.get("window");
 const AdminAddProduct = (props) => {
     const user = props.route.params.user;
     const categories = ["t-shirts", "pants"];
-    const colors = ["white", "black", "blue", "grey"];
+    const colors = ["white", "black", "blue", "grey", "As Photos"];
 
     const [category, setCategory] = useState(null);
     const [color, setColor] = useState(null);
@@ -104,6 +104,7 @@ const AdminAddProduct = (props) => {
                         </View>
                         <View>
                             <Select
+                                key="categoy"
                                 selectedValue={category}
                                 accessibilityLabel="category"
                                 placeholder="category"
@@ -116,12 +117,13 @@ const AdminAddProduct = (props) => {
                                 onValueChange={(category) => setCategory(category)}
                             >
                                 {categories.map((item) => {
-                                    return <Select.Item label={item} value={item} key = {item} />;
+                                    return <Select.Item label={item} value={item} key={item} />;
                                 })}
                             </Select>
                         </View>
                         <View>
                             <Select
+                                key="color"
                                 selectedValue={color}
                                 accessibilityLabel="Color"
                                 placeholder="Color"
@@ -134,7 +136,7 @@ const AdminAddProduct = (props) => {
                                 onValueChange={(color) => setColor(color)}
                             >
                                 {colors.map((item) => {
-                                    return <Select.Item label={item} value={item} key = {item} />;
+                                    return <Select.Item label={item} value={item} key={item} />;
                                 })}
                             </Select>
                         </View>
