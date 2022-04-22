@@ -63,8 +63,9 @@ const SingleProduct = (props) => {
                                 </Select>
                             </View>
                         </View>
-                        <View style={{ width: "90%", marginBottom: 10, alignSelf: "center" }}>
-                            <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right" }}>{product.price}</Text>
+                        <View style={{ width: "90%", marginBottom: 10, alignSelf: "center", flexDirection: "row" }}>
+                            <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right", flex: 1 }}>{product.price}</Text>
+                            <Text style={{ textAlignVertical: "center", flex: 1 }}>body size</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>

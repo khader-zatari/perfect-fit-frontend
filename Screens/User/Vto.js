@@ -1,22 +1,43 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Alert, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, ScrollView, Dimensions } from "react-native";
 import { Button } from "native-base";
 import { Camera } from "expo-camera";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
+import baseURL from "../../assets/baseUrl";
+import * as ImagePicker from "expo-image-picker";
+import { RNS3 } from "react-native-aws3";
+var secret = require("../../Shared/Secret");
+const { height, width } = Dimensions.get("window");
 const Vto = (props) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [showCamera, setShowCamera] = useState(false);
-    const [image, setImage] = useState(null);
     const cameraRef = useRef(null);
 
+    const [personImage, setPersonImage] = useState(null);
+    const [vtoImage, setVtoImage] = useState(null);
+
+    const user = props.route.params.user; // redux
+    // const clothImage = props.route.params.clothImage; //redux
+
     useEffect(() => {
+        axios
+            .get(`${baseURL}users/${user._id}`)
+            .then((res) => {
+                setPersonImage(res.data.personImage);
+                setVtoImage(res.data.vtoImage);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();
             setHasPermission(status === "granted");
         })();
     }, []);
-
+    
     if (hasPermission === null) {
         return <View />;
     }
@@ -45,13 +66,101 @@ const Vto = (props) => {
                     fileName,
                     type: `image/${ext}`,
                 });
+                uploadImageToS3(formData)
+                    .then((res) => {
+                        //add the personImage uri to the database for the user.
+
+                        axios
+                            .put(`${baseURL}users/${user._id}`, { personImage: res.src })
+                            .then((res) => {
+                                if (res.status == 200) {
+                                    console.log("success");
+                                }
+                            })
+                            .catch((error) => {
+                                console.log("error");
+                            });
+                        console.log("sucsess");
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                    });
             }
-            ///
-            return photo;
+            //upload photo.uri to AWS S3
+
+            return photo.uri;
         } catch (e) {
             console.log(e);
         }
     };
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            uploadImageToS3(result)
+                .then((res) => {
+                    console.log(res.src);
+                    //add the personImage uri to the database for the user.
+                    axios
+                        .put(`${baseURL}users/${user._id}`, { personImage: res.src })
+                        .then((res) => {
+                            if (res.status == 200) {
+                                console.log("success");
+                            }
+                        })
+                        .catch((error) => {
+                            console.log("error");
+                        });
+                    console.log("sucsess");
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+            // setPersonImage(result.uri);
+        }
+    };
+    const uploadImageToS3 = async (image) => {
+        const options = {
+            keyPrefix: "uploads/",
+            bucket: "pfakhader",
+            region: "eu-west-1",
+            accessKey: secret.ACCESSKEY,
+            secretKey: secret.SECRETKEY,
+            successActionStatus: 201,
+        };
+        const fileName = image.uri.replace(/^.*[\\\/]/, "");
+        const file = {
+            uri: image.uri,
+            name: fileName,
+            type: image.uri.substring(image.uri.lastIndexOf(".") + 1), //extracting filename from image path,
+        };
+
+        setPersonImage(image.uri);
+        return new Promise((resolve, reject) => {
+            RNS3.put(file, options)
+                .then((res) => {
+                    if (res.status === 201) {
+                        const { postResponse } = res.body;
+                        resolve({
+                            src: postResponse.location,
+                        });
+                    } else {
+                        console.log("error uploading to s3", res);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error uploading to s3", err);
+                    reject(err);
+                });
+        });
+    };
+
     return (
         <View style={styles.container}>
             {showCamera ? (
@@ -62,8 +171,7 @@ const Vto = (props) => {
                             onPress={async () => {
                                 const r = await takePhoto();
                                 if (!r.uri) {
-                                    setImage(r.uri);
-                                    console.log(image);
+                                    setPersonImage(r.uri);
                                 }
                                 setShowCamera(false);
                             }}
@@ -76,19 +184,63 @@ const Vto = (props) => {
                     </View>
                 </Camera>
             ) : (
-                <View style={{ flex: 1 }}>
-                    <View style={{ width: 100, height: 30, justifyContent: "center", alignItems: "center" }}>
-                        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, backgroundColor: "blue" }} />}
-                        <TouchableOpacity style={{ backgroundColor: "#000", flex: 1, justifyContent: "center", alignItems: "center" }} onPress={() => setShowCamera(true)}>
-                            <Text style={{}}>Take Picture</Text>
-                        </TouchableOpacity>
+                <SafeAreaView>
+                    <View style={styles.containerSecond}>
+                        <ScrollView>
+                            {personImage != "" ? (
+                                <View style={{ width: "90%", height: height / 2, alignSelf: "center", borderColor: "#000" }}>
+                                    {Image && (
+                                        <Image
+                                            source={{
+                                                uri: personImage,
+                                                headers: {
+                                                    Accept: "*/*",
+                                                },
+                                            }}
+                                            style={{ resizeMode: "contain", width: "100%", height: "100%" }}
+                                        />
+                                    )}
+                                </View>
+                            ) : null}
+                            <View style={styles.buttonsContainerSecond}>
+                                <View style={styles.buttonContainerSecond}>
+                                    <Button style={styles.buttonSecond} size="10" onPress={() => setShowCamera(true)}>
+                                        Take Photo
+                                    </Button>
+                                </View>
+                                <View style={styles.buttonContainerSecond}>
+                                    <Button style={styles.buttonSecond} size="10" onPress={pickImage}>
+                                        from Galary
+                                    </Button>
+                                </View>
+                            </View>
+                            {vtoImage != "" ? <View style={{ width: "90%", height: height / 2, alignSelf: "center", borderColor: "#000" }}>{Image && <Image source={{ uri: vtoImage }} style={{ resizeMode: "contain", width: "100%", height: "100%" }} />}</View> : null}
+
+                            <View style={styles.buttonsContainerSecond}>
+                                <View style={{ flex: 1, alignItems: "center", width: "100%", justifyContent: "center" }}>
+                                    <Button style={styles.buttonSecond} size="10">
+                                        Generate Photo
+                                    </Button>
+                                </View>
+                            </View>
+                        </ScrollView>
                     </View>
-                </View>
+                </SafeAreaView>
             )}
         </View>
     );
 };
 const styles = StyleSheet.create({
+    containerSecond: { width: width, height: "100%" },
+    buttonsContainerSecond: { flex: 1, flexDirection: "row" },
+    buttonContainerSecond: {
+        flex: 1,
+        alignItems: "center",
+        width: "100%",
+        justifyContent: "center",
+        marginVertical: "20%",
+    },
+    buttonSecond: { width: "90%" },
     container: {
         flex: 1,
     },

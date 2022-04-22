@@ -59,6 +59,7 @@ const AdminAddProduct = (props) => {
             type: image.uri.substring(image.uri.lastIndexOf(".") + 1), //extracting filename from image path,
         };
 
+
         return new Promise((resolve, reject) => {
             RNS3.put(file, options)
                 .then((res) => {

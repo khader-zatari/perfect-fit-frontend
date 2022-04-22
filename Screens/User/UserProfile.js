@@ -40,7 +40,7 @@ const UserProfile = (props) => {
                         style={styles.button}
                         size="16"
                         onPress={() => {
-                            props.navigation.navigate("Vto");
+                            props.navigation.navigate("Vto", { user: user });
                         }}
                     >
                         VTO
