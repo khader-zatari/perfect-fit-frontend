@@ -5,6 +5,7 @@ const { height, width } = Dimensions.get("window");
 const ProductCard = (props) => {
     var price = 10;
     var name = "grey Tshirt ";
+    console.log(props.image);
     return (
         <View style={styles.container}>
             <Image source={{ uri: props.image ? props.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />

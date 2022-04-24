@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Button } from "native-base";
 import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import axios from "axios";
+import baseURL from "../../assets/baseUrl";
+import { connect } from "react-redux";
+import { UPDATEUSER } from "../../Redux/constants";
 const { height, width } = Dimensions.get("window");
 
 const ShippingAddress = (props) => {
@@ -12,9 +15,9 @@ const ShippingAddress = (props) => {
     const [city, setCity] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    
+
     const saveAddress = () => {
-        let address = {
+        let newAddress = {
             name: name,
             phone: phoneNumber,
             address: address,
@@ -23,14 +26,19 @@ const ShippingAddress = (props) => {
         };
         //set a new user in the database that contain the user object then go the login page
         axios
-            .put(`${baseURL}users/shippingAddress/${user._id}`, address)
+            .put(`${baseURL}users/shippingAddress/${user._id}`, newAddress)
             .then((res) => {
                 if (res.status == 200) {
                     console.log("success");
-
-                    setTimeout(() => {
-                        props.navigation.navigate("Userpage", { user: user });
-                    }, 500);
+                    axios
+                        .get(`${baseURL}users/${user._id}`)
+                        .then((res) => {
+                            setTimeout(() => {
+                                props.updateTheUser(res.data);
+                                props.navigation.navigate("Userpage");
+                            }, 500);
+                        })
+                        .catch((error) => console.log(error.response.data));
                 }
             })
             .catch((error) => {
@@ -63,26 +71,40 @@ const ShippingAddress = (props) => {
                         </View>
                         <View style={styles.input}>
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>Phone Number</Text>
-                            <TextInput style={styles.TextInput} placeholder="Phone Number" id="phoneNumber" name="phoneNumber" keyboardType={"numeric"} onChangeText={(text) => setName(text)} />
+                            <TextInput style={styles.TextInput} placeholder="Phone Number" id="phoneNumber" name="phoneNumber" keyboardType={"numeric"} onChangeText={(text) => setPhoneNumber(text)} />
                         </View>
                     </View>
                     <View style={styles.secondPart}>
                         <View style={styles.buttonContainer}>
-                            <Button
-                                style={styles.button}
-                                size="12"
-                                onPress={() => {
-                                    saveAddress();
-                                }}
-                            >
+                            <Button style={styles.button} size="12" onPress={saveAddress}>
                                 <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE ADDRESS</Text>
                             </Button>
+                        </View>
+                        <View>
+                            <Text>name : {props.theUser[0].name}</Text>
+                            <Text>address : {props.theUser[0].address}</Text>
+                            <Text>city : {props.theUser[0].city}</Text>
+                            <Text>zip : {props.theUser[0].zip}</Text>
+                            <Text>phone : {props.theUser[0].phone}</Text>
                         </View>
                     </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
     );
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateTheUser: (user) => {
+            dispatch({ type: UPDATEUSER, payload: user });
+        },
+    };
+};
+const mapStateToProps = (state) => {
+    const { theUser } = state;
+    return {
+        theUser: theUser,
+    };
 };
 const styles = StyleSheet.create({
     container: {
@@ -119,4 +141,4 @@ const styles = StyleSheet.create({
     secondPart: {},
 });
 
-export default ShippingAddress;
+export default connect(mapStateToProps, mapDispatchToProps)(ShippingAddress);

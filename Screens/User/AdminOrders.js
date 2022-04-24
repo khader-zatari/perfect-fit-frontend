@@ -1,28 +1,41 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import baseURL from "../../assets/baseUrl";
 import OrderCard from "./OrderCard";
+
 const { height, width } = Dimensions.get("window");
 const AdminOrders = (props) => {
+    const [orders, setOrders] = useState(null);
+    useEffect(() => {
+        axios
+            .get(`${baseURL}orders`)
+            .then((x) => {
+                const data = x.data;
+                const userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+                setOrders(userOrders);
+            })
+            .catch((error) => console.log(error));
+
+        return () => {
+            setOrders();
+        };
+    }, []);
     return (
         <ScrollView>
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Orders</Text>
             </View>
-            <View>
-                <TouchableOpacity
-                    onPress={() => {
-                        props.navigation.navigate("SingleOrder");
-                    }}
-                >
-                    <OrderCard />
-                </TouchableOpacity>
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
+            <View style={{ width: "100%", height: "100%" }}>
+                {orders != null ? (
+                    orders.map((order) => {
+                        return <OrderCard order={order} />;
+                    })
+                ) : (
+                    <View>
+                        <Text>you have no orderes</Text>
+                    </View>
+                )}
             </View>
         </ScrollView>
     );

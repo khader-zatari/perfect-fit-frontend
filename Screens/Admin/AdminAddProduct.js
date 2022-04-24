@@ -5,7 +5,7 @@ import SelectMultiple from "react-native-select-multiple";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
-
+var secret = require("../../Shared/Secret");
 const { height, width } = Dimensions.get("window");
 const AdminAddProduct = (props) => {
     const user = props.route.params.user;
@@ -32,14 +32,15 @@ const AdminAddProduct = (props) => {
 
         if (!result.cancelled) {
             uploadImageToS3(result)
-                .then(() => {
+                .then((res) => {
+                    setTemp(res.src);
+                    setImages((prevState) => [...prevState, res.src]);
                     console.log("sucsess");
                 })
                 .catch((e) => {
                     console.log(e);
                 });
-            setTemp(result.uri);
-            setImages((prevState) => [...prevState, result.uri]);
+
             console.log(images);
         }
     };
@@ -58,7 +59,6 @@ const AdminAddProduct = (props) => {
             name: fileName,
             type: image.uri.substring(image.uri.lastIndexOf(".") + 1), //extracting filename from image path,
         };
-
 
         return new Promise((resolve, reject) => {
             RNS3.put(file, options)

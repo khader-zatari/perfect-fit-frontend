@@ -10,6 +10,9 @@ const AccountInformation = (props) => {
                 <Text>name {user.name}</Text>
                 <Text>email {user.email}</Text>
                 <Text>phone {user.phone}</Text>
+                <Text>addres {user.address}</Text>
+                <Text>city {user.city}</Text>
+                <Text>zip {user.zip}</Text>
             </View>
         </SafeAreaView>
     );

@@ -63,9 +63,13 @@ const SingleProduct = (props) => {
                                 </Select>
                             </View>
                         </View>
-                        <View style={{ width: "90%", marginBottom: 10, alignSelf: "center", flexDirection: "row" }}>
-                            <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "right", flex: 1 }}>{product.price}</Text>
-                            <Text style={{ textAlignVertical: "center", flex: 1 }}>body size</Text>
+                        <View>
+                            <View>
+                                    <Text>Body size</Text>
+                            </View>
+                            <View>
+                                    
+                            </View>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -107,7 +111,6 @@ const mapStateToProps = (state) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: "100%",
     },
     imageContainer: {
         flex: 1,
@@ -124,7 +127,6 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         alignItems: "center",
-
         justifyContent: "center",
     },
     button: { width: "90%" },
@@ -132,7 +134,6 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     selectContainer: {
-        flex: 1,
         alignSelf: "center",
         flexDirection: "row",
     },

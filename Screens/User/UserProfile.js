@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 const { height } = Dimensions.get("window");
 const UserProfile = (props) => {
     const user = props.theUser[0];
-    console.log(user);
     return (
         <View style={styles.container}>
             <SafeAreaView>
@@ -35,39 +34,46 @@ const UserProfile = (props) => {
                         Profile information
                     </Button>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        style={styles.button}
-                        size="16"
-                        onPress={() => {
-                            props.navigation.navigate("Vto", { user: user });
-                        }}
-                    >
-                        VTO
-                    </Button>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        style={styles.button}
-                        size="16"
-                        onPress={() => {
-                            props.navigation.navigate("Vto1");
-                        }}
-                    >
-                        VTO1
-                    </Button>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        style={styles.button}
-                        size="16"
-                        onPress={() => {
-                            props.navigation.navigate("Admin", { user: user });
-                        }}
-                    >
-                        Admin
-                    </Button>
-                </View>
+                {!user.isAdmin ? (
+                    <>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                size="16"
+                                onPress={() => {
+                                    props.navigation.navigate("Vto", { user: user });
+                                }}
+                            >
+                                VTO
+                            </Button>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                style={styles.button}
+                                size="16"
+                                onPress={() => {
+                                    props.navigation.navigate("Vto1");
+                                }}
+                            >
+                                VTO1
+                            </Button>
+                        </View>
+                    </>
+                ) : null}
+                {user.isAdmin == true ? (
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            style={styles.button}
+                            size="16"
+                            onPress={() => {
+                                props.navigation.navigate("Admin", { user: user });
+                            }}
+                        >
+                            Admin
+                        </Button>
+                    </View>
+                ) : null}
                 <View style={styles.buttonContainer}>
                     <Button
                         style={styles.button}

@@ -15,7 +15,12 @@ const Orders = (props) => {
             .get(`${baseURL}orders`)
             .then((x) => {
                 const data = x.data;
-                const userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+                let userOrders = null;
+                if (props.theUser[0].isAdmin == true) {
+                    userOrders = data.filter((order) => order.shop._id === props.theUser[0]._id);
+                } else {
+                    userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+                }
                 setOrders(userOrders);
             })
             .catch((error) => console.log(error));
@@ -32,20 +37,15 @@ const Orders = (props) => {
                     <Text style={styles.headerText}>Orders</Text>
                 </View>
                 <View style={{ width: "100%", height: "100%" }}>
-                    {orders != null
-                        ? orders.map((order) => {
-                              return (
-                                  <TouchableOpacity
-                                      key={order._id}
-                                      onPress={() => {
-                                          // props.navigation.navigate("SingleOrder");
-                                      }}
-                                  >
-                                      <OrderCard {...order} />
-                                  </TouchableOpacity>
-                              );
-                          })
-                        : null}
+                    {orders != null ? (
+                        orders.map((order) => {
+                            return <OrderCard order={order} />;
+                        })
+                    ) : (
+                        <View>
+                            <Text>you have no orderes</Text>
+                        </View>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>

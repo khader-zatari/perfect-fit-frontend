@@ -38,7 +38,7 @@ const Cart = (props) => {
             shippingAddress: props.theUser[0].address,
             zip: props.theUser[0].zip,
             city: props.theUser[0].city,
-            phone: props.theUser[0].receiverPhone,
+            phone: props.theUser[0].phone,
             status: "3",
             dateOrdered: Date.now(),
             user: props.theUser[0]._id,

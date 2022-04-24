@@ -33,39 +33,54 @@
 //     text: { paddingTop: 10, fontWeight: "bold" },
 // });
 // export default OrderCard;
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
-import OrderCardItem from "./OrderCardItem";
+import baseURL from "../../assets/baseUrl";
 
 const { width, height } = Dimensions.get("window");
 
-const OrderCard = (props) => {
-    const orderItems = props.order.orderItems;
-    const theOrder = props.order;
-    //shipping address
-    //order container
+const OrderCardItem = (props) => {
+    const itemId = props.item;
+    const [item, setItem] = useState(null);
+    // axios in useEffect  set the item to the item state
+    useEffect(() => {
+        axios
+            .get(`${baseURL}Orders/orderItem/${itemId}`)
+            .then((res) => setItem(res.data))
+            .catch((error) => console.log(error.response.data));
+        return () => {
+            setItem();
+        };
+    }, []);
+
     return (
-        <View style={{ backgroundColor: "#40e0d0", marginVertical: "10%" }}>
-            <View>
-                {orderItems.map((item) => {
-                    return <OrderCardItem item={item} key={item} />;
-                })}
-            </View>
-            <View>
-                <Text>paied: {theOrder.totalPrice}</Text>
-            </View>
-            <View>
-                <Text>
-                    shipping address: {theOrder.city}, {theOrder.shippingAddress}, {theOrder.zip}
-                </Text>
-            </View>
-            <View>
-                <Text>shop bought from: {theOrder.shop.name}</Text>
-            </View>
-            <View>
-                <Text>status: {theOrder.status}</Text>
-            </View>
-        </View>
+        <>
+            {item ? (
+                <View style={styles.container}>
+                    <View style={styles.imageContainer}>
+                        <Image source={{ uri: item.image ? item.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
+                    </View>
+                    <View style={styles.right}>
+                        <View style={styles.rightLeft}>
+                            <View style={styles.rightLeftUpTextContainer}>
+                                <Text>{item.product.brand}</Text>
+                                <Text>{item.product.name}</Text>
+                            </View>
+                            <View style={styles.rightLeftDownTextContainer}>
+                                <Text>{item.size}</Text>
+                                <Text>{item.color}</Text>
+                                <Text>{item.quantity}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.rightRight}>
+                            <Text>Nis {item.product.price}</Text>
+                        </View>
+                        {/* size->item.size, color->item.color, image, quantity->item.quantity*/}
+                    </View>
+                </View>
+            ) : null}
+        </>
     );
 };
 
@@ -100,4 +115,4 @@ const styles = StyleSheet.create({
     rightLeftDownTextContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
     rightRight: { flex: 3, justifyContent: "center", alignItems: "center" },
 });
-export default OrderCard;
+export default OrderCardItem;
