@@ -65,10 +65,10 @@ const SingleProduct = (props) => {
                         </View>
                         <View>
                             <View>
-                                    <Text>Body size</Text>
+                                <Text>Body size</Text>
                             </View>
                             <View>
-                                    
+                                <Text>{product.price} NIS</Text>
                             </View>
                         </View>
 
@@ -77,8 +77,8 @@ const SingleProduct = (props) => {
                                 style={styles.button}
                                 size="16"
                                 onPress={() => {
-                                    // props.navigation.navigate("Just");
                                     props.addItemToCart(product, color, size);
+                                    props.navigation.navigate("ProductContainer", { store: props.route.params.store, personType: props.route.params.personType });
                                 }}
                             >
                                 Add to Cart

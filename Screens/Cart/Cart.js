@@ -11,7 +11,7 @@ import baseURL from "../../assets/baseUrl";
 const { height } = Dimensions.get("window");
 
 const Cart = (props) => {
-    const [orderItems, setOrderItems] = useState();
+    const [orderItems, setOrderItems] = useState(null);
     const [address, setAddress] = useState();
     const [city, setCity] = useState();
     const [zip, setZip] = useState();
@@ -34,7 +34,7 @@ const Cart = (props) => {
     });
     const constructOrder = () => {
         let order = {
-            orderItems,
+            orderItems: props.cartItems,
             shippingAddress: props.theUser[0].address,
             zip: props.theUser[0].zip,
             city: props.theUser[0].city,
@@ -42,9 +42,11 @@ const Cart = (props) => {
             status: "3",
             dateOrdered: Date.now(),
             user: props.theUser[0]._id,
-            shop: orderItems[0].product.Admin,
+            shop: props.cartItems[0].product.Admin,
         };
-        console.log(order);
+
+        // console.log(order);
+
         axios
             .post(`${baseURL}orders`, order)
             .then((res) => {
@@ -74,7 +76,7 @@ const Cart = (props) => {
                         </View>
                         <View style={styles.priceAndButton}>
                             <View style={styles.price}>
-                                <Text>{total}$</Text>
+                                <Text>{total} NIS</Text>
                             </View>
 
                             <View style={styles.buttonContainer}>

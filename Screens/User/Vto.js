@@ -7,7 +7,8 @@ import axios from "axios";
 import baseURL from "../../assets/baseUrl";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
-var secret = require("../../Shared/Secret");
+import { ACCESSKEY, SECRETKEY } from "../../Shared/Secret";
+
 const { height, width } = Dimensions.get("window");
 const Vto = (props) => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -37,7 +38,7 @@ const Vto = (props) => {
             setHasPermission(status === "granted");
         })();
     }, []);
-    
+
     if (hasPermission === null) {
         return <View />;
     }
@@ -130,8 +131,8 @@ const Vto = (props) => {
             keyPrefix: "uploads/",
             bucket: "pfakhader",
             region: "eu-west-1",
-            accessKey: secret.ACCESSKEY,
-            secretKey: secret.SECRETKEY,
+            accessKey: ACCESSKEY,
+            secretKey: SECRETKEY,
             successActionStatus: 201,
         };
         const fileName = image.uri.replace(/^.*[\\\/]/, "");

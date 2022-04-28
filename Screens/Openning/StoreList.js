@@ -7,7 +7,6 @@ import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 const ProductList = (props) => {
-    const userJson = require("../../assets/users.json");
     const personType = props.route.params.personType;
     // const [stores, setstores] = useState(
     //     userJson.filter((user) => {

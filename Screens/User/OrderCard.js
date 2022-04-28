@@ -45,7 +45,12 @@ const OrderCard = (props) => {
     //shipping address
     //order container
     return (
-        <View style={{ backgroundColor: "#40e0d0", marginVertical: "10%" }}>
+        <View
+            style={{
+                backgroundColor: "#40e0d0",
+                marginVertical: "10%",
+            }}
+        >
             <View>
                 {orderItems.map((item) => {
                     return <OrderCardItem item={item} key={item} />;

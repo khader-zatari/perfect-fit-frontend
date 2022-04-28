@@ -59,22 +59,22 @@ const OrderCardItem = (props) => {
             {item ? (
                 <View style={styles.container}>
                     <View style={styles.imageContainer}>
-                        <Image source={{ uri: item.image ? item.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
+                        <Image source={{ uri: item.product.image ? item.product.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
                     </View>
                     <View style={styles.right}>
                         <View style={styles.rightLeft}>
                             <View style={styles.rightLeftUpTextContainer}>
-                                <Text>{item.product.brand}</Text>
+                                <Text>Brand: {item.product.brand}</Text>
                                 <Text>{item.product.name}</Text>
                             </View>
                             <View style={styles.rightLeftDownTextContainer}>
-                                <Text>{item.size}</Text>
-                                <Text>{item.color}</Text>
-                                <Text>{item.quantity}</Text>
+                                <Text>Color: {item.color}</Text>
+                                <Text>Quantity: {item.quantity}</Text>
                             </View>
                         </View>
                         <View style={styles.rightRight}>
-                            <Text>Nis {item.product.price}</Text>
+                            <Text>{item.product.price} NIS</Text>
+                            <Text>size: {item.size}</Text>
                         </View>
                         {/* size->item.size, color->item.color, image, quantity->item.quantity*/}
                     </View>
@@ -87,8 +87,8 @@ const OrderCardItem = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFF000",
-        opacity: 0.7,
+        // backgroundColor: "#FFF000",
+        // opacity: 0.7,
         width: "80%",
         height: height / 10,
         alignSelf: "center",

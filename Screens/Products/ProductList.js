@@ -5,7 +5,6 @@ import ProductCard from "./ProductCard";
 const { width } = Dimensions.get("window");
 const ProductList = (props) => {
     const products = props.products;
-
     return (
         <View style={styles.container}>
             {products.map((item) => {
@@ -13,7 +12,7 @@ const ProductList = (props) => {
                     <TouchableOpacity
                         key={item._id} //you should change this one
                         onPress={() => {
-                            props.navigation.navigate("SingleProduct", { product: item });
+                            props.navigation.navigate("SingleProduct", { product: item, personType: props.personType, store: props.store });
                         }}
                     >
                         <ProductCard {...item} />

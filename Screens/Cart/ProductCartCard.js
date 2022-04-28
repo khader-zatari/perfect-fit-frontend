@@ -2,25 +2,29 @@ import React from "react";
 import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
 
 const { width, height } = Dimensions.get("window");
-
+// props.item.product.brand
 const ProductCartCard = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../assets/1638427112t-shirt-png.png")} style={styles.image} />
+                <Image source={{ uri: props.item.product.image ? props.item.product.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
             </View>
             <View style={styles.right}>
                 <View style={styles.rightLeft}>
                     <View style={styles.rightLeftUpTextContainer}>
-                        <Text>{props.item.product.brand}</Text>
+                        <Text>Brand: {props.item.product.brand}</Text>
+                        <Text>{props.item.product.name}</Text>
                     </View>
                     <View style={styles.rightLeftDownTextContainer}>
-                        <Text>{props.item.product.name}</Text>
+                        <Text>Color: {props.item.color}</Text>
+                        <Text>Quantity: {props.item.quantity}</Text>
                     </View>
                 </View>
                 <View style={styles.rightRight}>
-                    <Text>${props.item.product.price}</Text>
+                    <Text>{props.item.product.price} NIS</Text>
+                    <Text>size: {props.item.size}</Text>
                 </View>
+                {/* size->item.size, color->item.color, image, quantity->item.quantity*/}
             </View>
         </View>
     );
@@ -29,8 +33,8 @@ const ProductCartCard = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFF000",
-        opacity: 0.7,
+        // backgroundColor: "#FFF000",
+        // opacity: 0.7,
         width: "80%",
         height: height / 10,
         alignSelf: "center",

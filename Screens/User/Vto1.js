@@ -4,7 +4,7 @@ import { Button } from "native-base";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
 import { SafeAreaView } from "react-native-safe-area-context";
-var secret = require("../../Shared/Secret");
+import { ACCESSKEY, SECRETKEY } from "../../Shared/Secret";
 
 const Vto1 = (props) => {
     const [images, setImages] = useState([]);
@@ -37,8 +37,8 @@ const Vto1 = (props) => {
             keyPrefix: "uploads/",
             bucket: "pfakhader",
             region: "eu-west-1",
-            accessKey: secret.ACCESSKEY,
-            secretKey: secret.SECRETKEY,
+            accessKey: ACCESSKEY,
+            secretKey: SECRETKEY,
             successActionStatus: 201,
         };
         const fileName = image.uri.replace(/^.*[\\\/]/, "");

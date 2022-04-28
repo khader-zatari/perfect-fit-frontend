@@ -5,7 +5,8 @@ import SelectMultiple from "react-native-select-multiple";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
-var secret = require("../../Shared/Secret");
+import { ACCESSKEY, SECRETKEY } from "../../Shared/Secret";
+
 const { height, width } = Dimensions.get("window");
 const AdminAddProduct = (props) => {
     const user = props.route.params.user;
@@ -49,8 +50,8 @@ const AdminAddProduct = (props) => {
             keyPrefix: "uploads/",
             bucket: "pfakhader",
             region: "eu-west-1",
-            accessKey: secret.ACCESSKEY,
-            secretKey: secret.SECRETKEY,
+            accessKey: ACCESSKEY,
+            secretKey: SECRETKEY,
             successActionStatus: 201,
         };
         const fileName = image.uri.replace(/^.*[\\\/]/, "");
