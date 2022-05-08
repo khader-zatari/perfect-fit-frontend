@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
 
 import baseURL from "../../assets/baseUrl";
@@ -6,29 +6,53 @@ import { connect } from "react-redux";
 import OrderCard from "./OrderCard";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
 const Orders = (props) => {
     const [orders, setOrders] = useState(null);
-    useEffect(() => {
-        axios
-            .get(`${baseURL}orders`)
-            .then((x) => {
-                const data = x.data;
-                let userOrders = null;
-                if (props.theUser[0].isAdmin == true) {
-                    userOrders = data.filter((order) => order.shop._id === props.theUser[0]._id);
-                } else {
-                    userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
-                }
-                setOrders(userOrders);
-            })
-            .catch((error) => console.log(error));
 
-        return () => {
-            setOrders();
-        };
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            axios
+                .get(`${baseURL}orders`)
+                .then((x) => {
+                    const data = x.data;
+                    let userOrders = null;
+                    if (props.theUser[0].isAdmin == true) {
+                        userOrders = data.filter((order) => order.shop._id === props.theUser[0]._id);
+                    } else {
+                        userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+                    }
+                    setOrders(userOrders);
+                })
+                .catch((error) => console.log(error));
+
+            return () => {
+                setOrders();
+            };
+        }, [])
+    );
+
+    // useEffect(() => {
+    //     axios
+    //         .get(`${baseURL}orders`)
+    //         .then((x) => {
+    //             const data = x.data;
+    //             let userOrders = null;
+    //             if (props.theUser[0].isAdmin == true) {
+    //                 userOrders = data.filter((order) => order.shop._id === props.theUser[0]._id);
+    //             } else {
+    //                 userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+    //             }
+    //             setOrders(userOrders);
+    //         })
+    //         .catch((error) => console.log(error));
+
+    //     return () => {
+    //         setOrders();
+    //     };
+    // }, []);
 
     return (
         <SafeAreaView edges={["top", "left", "right"]}>

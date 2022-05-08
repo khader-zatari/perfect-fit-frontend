@@ -1,26 +1,45 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
 import baseURL from "../../assets/baseUrl";
 import OrderCard from "./OrderCard";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
 const AdminOrders = (props) => {
     const [orders, setOrders] = useState(null);
-    useEffect(() => {
-        axios
-            .get(`${baseURL}orders`)
-            .then((x) => {
-                const data = x.data;
-                const userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
-                setOrders(userOrders);
-            })
-            .catch((error) => console.log(error));
 
-        return () => {
-            setOrders();
-        };
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            axios
+                .get(`${baseURL}orders`)
+                .then((x) => {
+                    const data = x.data;
+                    const userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+                    setOrders(userOrders);
+                })
+                .catch((error) => console.log(error));
+
+            return () => {
+                setOrders();
+            };
+        }, [])
+    );
+
+    // useEffect(() => {
+    //     axios
+    //         .get(`${baseURL}orders`)
+    //         .then((x) => {
+    //             const data = x.data;
+    //             const userOrders = data.filter((order) => order.user._id === props.theUser[0]._id);
+    //             setOrders(userOrders);
+    //         })
+    //         .catch((error) => console.log(error));
+
+    //     return () => {
+    //         setOrders();
+    //     };
+    // }, []);
     return (
         <ScrollView>
             <View style={styles.headerContainer}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, ScrollView, Dimensions } from "react-native";
 import { Button } from "native-base";
 import { Camera } from "expo-camera";
@@ -8,6 +8,7 @@ import baseURL from "../../assets/baseUrl";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
 import { ACCESSKEY, SECRETKEY } from "../../Shared/Secret";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
 const Vto = (props) => {
@@ -22,22 +23,46 @@ const Vto = (props) => {
     const user = props.route.params.user; // redux
     // const clothImage = props.route.params.clothImage; //redux
 
-    useEffect(() => {
-        axios
-            .get(`${baseURL}users/${user._id}`)
-            .then((res) => {
-                setPersonImage(res.data.personImage);
-                setVtoImage(res.data.vtoImage);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    useFocusEffect(
+        useCallback(() => {
+            axios
+                .get(`${baseURL}users/${user._id}`)
+                .then((res) => {
+                    setPersonImage(res.data.personImage);
+                    setVtoImage(res.data.vtoImage);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
 
-        (async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync();
-            setHasPermission(status === "granted");
-        })();
-    }, []);
+            (async () => {
+                const { status } = await Camera.requestCameraPermissionsAsync();
+                setHasPermission(status === "granted");
+            })();
+            return () => {
+                setPersonImage();
+                setVtoImage();
+                setHasPermission();
+            };
+        }, [])
+    );
+
+    // useEffect(() => {
+    //     axios
+    //         .get(`${baseURL}users/${user._id}`)
+    //         .then((res) => {
+    //             setPersonImage(res.data.personImage);
+    //             setVtoImage(res.data.vtoImage);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+
+    //     (async () => {
+    //         const { status } = await Camera.requestCameraPermissionsAsync();
+    //         setHasPermission(status === "granted");
+    //     })();
+    // }, []);
 
     if (hasPermission === null) {
         return <View />;
@@ -172,9 +197,9 @@ const Vto = (props) => {
             .get(`${baseURL}Files/${clothName}/${personName}/${clothId}/${personId}`)
             .then((res) => {
                 axios
-                    .put(`${baseURL}user/${user._id}` , {})
+                    .put(`${baseURL}user/${user._id}`, {})
                     .then((res) => {
-                        console.log("vto photo is updated in DB")
+                        console.log("vto photo is updated in DB");
                     })
                     .catch((error) => {
                         console.log(error);

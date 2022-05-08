@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import StoreCard from "./StoreCard";
 import baseURL from "../../assets/baseUrl";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 const ProductList = (props) => {
@@ -15,15 +16,28 @@ const ProductList = (props) => {
     // );
 
     const [stores, setStores] = useState(null);
-    useEffect(() => {
-        axios
-            .get(`${baseURL}stores`)
-            .then((res) => setStores(res.data))
-            .catch((error) => console.log(error.response.data));
-        return () => {
-            setStores();
-        };
-    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            axios
+                .get(`${baseURL}stores`)
+                .then((res) => setStores(res.data))
+                .catch((error) => console.log(error.response.data));
+            return () => {
+                setStores();
+            };
+        }, [])
+    );
+
+    // useEffect(() => {
+    //     axios
+    //         .get(`${baseURL}stores`)
+    //         .then((res) => setStores(res.data))
+    //         .catch((error) => console.log(error.response.data));
+    //     return () => {
+    //         setStores();
+    //     };
+    // }, []);
 
     return (
         <SafeAreaView edges={["top", "left", "right"]}>

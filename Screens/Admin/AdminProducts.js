@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { Button } from "native-base";
 import AdminProductList from "../Admin/AdminProductList";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,15 +13,18 @@ const AdminProducts = (props) => {
 
     const [products, setProducts] = useState(null);
 
-    useEffect(() => {
-        axios.get(`${baseURL}products/store/${user._id}`).then((res) => {
-            setProducts(res.data);
-            console.log(res.data);
-        });
-        return () => {
-            setProducts();
-        };
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            axios.get(`${baseURL}products/store/${user._id}`).then((res) => {
+                setProducts(res.data);
+                console.log(res.data);
+            });
+            return () => {
+                setProducts();
+            };
+        }, [])
+    );
+
     return (
         <SafeAreaView>
             <ScrollView bounces={true}>

@@ -34,9 +34,10 @@
 // });
 // export default OrderCard;
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
 import baseURL from "../../assets/baseUrl";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -45,15 +46,28 @@ const OrderCardItem = (props) => {
 
     const [item, setItem] = useState(null);
     // axios in useEffect  set the item to the item state
-    useEffect(() => {
-        axios
-            .get(`${baseURL}Orders/orderItem/${itemId}`)
-            .then((res) => setItem(res.data))
-            .catch((error) => console.log(error.response.data));
-        return () => {
-            setItem();
-        };
-    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            axios
+                .get(`${baseURL}Orders/orderItem/${itemId}`)
+                .then((res) => setItem(res.data))
+                .catch((error) => console.log(error.response.data));
+            return () => {
+                setItem();
+            };
+        }, [])
+    );
+
+    // useEffect(() => {
+    //      axios
+    //         .get(`${baseURL}Orders/orderItem/${itemId}`)
+    //         .then((res) => setItem(res.data))
+    //         .catch((error) => console.log(error.response.data));
+    //     return () => {
+    //         setItem();
+    //     };
+    // }, []);
 
     return (
         <>

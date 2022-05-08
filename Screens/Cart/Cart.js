@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useCallback } from "react";
 import { Text, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ProductCartCard from "./ProductCartCard";
 import ProductCartList from "./ProductCartList";
@@ -8,6 +8,7 @@ import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../Redux/constants
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import baseURL from "../../assets/baseUrl";
+import { useFocusEffect } from "@react-navigation/native";
 const { height } = Dimensions.get("window");
 
 const Cart = (props) => {
@@ -19,13 +20,22 @@ const Cart = (props) => {
     const [user, setUser] = useState();
     const [shop, setShop] = useState();
 
-    useEffect(() => {
-        setOrderItems(props.cartItems);
+    useFocusEffect(
+        useCallback(() => {
+            setOrderItems(props.cartItems);
+            return () => {
+                setOrderItems();
+            };
+        }, [])
+    );
 
-        return () => {
-            setOrderItems();
-        };
-    }, []);
+    // useEffect(() => {
+    //     setOrderItems(props.cartItems);
+
+    //     return () => {
+    //         setOrderItems();
+    //     };
+    // }, []);
 
     var total = 0;
 
