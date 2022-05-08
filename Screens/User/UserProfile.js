@@ -13,15 +13,27 @@ const UserProfile = (props) => {
                     <Text style={styles.headerText}>Hello,{user.name} </Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button
-                        style={styles.button}
-                        size="16"
-                        onPress={() => {
-                            props.navigation.navigate("ShippingAddress", { user: user });
-                        }}
-                    >
-                        Shipping Address
-                    </Button>
+                    {!user.isAdmin ? (
+                        <Button
+                            style={styles.button}
+                            size="16"
+                            onPress={() => {
+                                props.navigation.navigate("ShippingAddress", { user: user });
+                            }}
+                        >
+                            Shipping Address
+                        </Button>
+                    ) : (
+                        <Button
+                            style={styles.button}
+                            size="16"
+                            onPress={() => {
+                                props.navigation.navigate("ShippingAddress", { user: user });
+                            }}
+                        >
+                            Store Location
+                        </Button>
+                    )}
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
@@ -48,7 +60,7 @@ const UserProfile = (props) => {
                             </Button>
                         </View>
 
-                        <View style={styles.buttonContainer}>
+                        {/* <View style={styles.buttonContainer}>
                             <Button
                                 style={styles.button}
                                 size="16"
@@ -58,7 +70,7 @@ const UserProfile = (props) => {
                             >
                                 VTO1
                             </Button>
-                        </View>
+                        </View> */}
                     </>
                 ) : null}
                 {user.isAdmin == true ? (
@@ -67,10 +79,10 @@ const UserProfile = (props) => {
                             style={styles.button}
                             size="16"
                             onPress={() => {
-                                props.navigation.navigate("Admin", { user: user });
+                                props.navigation.navigate("AdminProducts", { user: user });
                             }}
                         >
-                            Admin
+                            Products
                         </Button>
                     </View>
                 ) : null}

@@ -54,7 +54,7 @@ const Vto = (props) => {
         try {
             let photo = await cameraRef.current.takePictureAsync({
                 allosEditing: true,
-                aspect: [4, 3],
+                // aspect: [4, 3],
                 quality: 1,
             });
             //upload the image
@@ -99,7 +99,7 @@ const Vto = (props) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [4, 3],
+            // aspect: [4, 3],
             quality: 1,
         });
 
@@ -162,6 +162,28 @@ const Vto = (props) => {
         });
     };
 
+    const tryIt = async (clothName, personName, clothId, personId) => {
+        //url to the person url
+        //url to the cloth url
+        //id to cloth
+        //id to person
+
+        axios
+            .get(`${baseURL}Files/${clothName}/${personName}/${clothId}/${personId}`)
+            .then((res) => {
+                axios
+                    .put(`${baseURL}user/${user._id}` , {})
+                    .then((res) => {
+                        console.log("vto photo is updated in DB")
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     return (
         <View style={styles.container}>
             {showCamera ? (
@@ -219,7 +241,7 @@ const Vto = (props) => {
 
                             <View style={styles.buttonsContainerSecond}>
                                 <View style={{ flex: 1, alignItems: "center", width: "100%", justifyContent: "center" }}>
-                                    <Button style={styles.buttonSecond} size="10">
+                                    <Button style={styles.buttonSecond} size="10" on press={tryIt}>
                                         Generate Photo
                                     </Button>
                                 </View>

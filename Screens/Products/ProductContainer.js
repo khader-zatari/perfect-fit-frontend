@@ -39,7 +39,7 @@ const ProductContainer = (props) => {
                     <Header logo={store.image} />
                     <SearchBar />
                     <View>
-                        <Banner bannerImages={bannerImages} />
+                        <Banner bannerImages={bannerImages} height={2} />
                     </View>
 
                     <View style={{ flexDirection: "row" }}>

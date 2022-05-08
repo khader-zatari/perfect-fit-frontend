@@ -52,7 +52,7 @@ const LogIn = (props) => {
                         </View>
                         <View style={styles.input}>
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>Password</Text>
-                            <TextInput style={styles.TextInput} placeholder="Password" id="password" name="password" onChangeText={(text) => setPassword(text)} />
+                            <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Password" id="password" name="password" onChangeText={(text) => setPassword(text)} />
                         </View>
                     </View>
                     <View style={styles.secondPart}>

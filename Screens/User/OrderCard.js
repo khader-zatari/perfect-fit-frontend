@@ -56,19 +56,21 @@ const OrderCard = (props) => {
                     return <OrderCardItem item={item} key={item} />;
                 })}
             </View>
-            <View>
-                <Text>paied: {theOrder.totalPrice}</Text>
-            </View>
-            <View>
-                <Text>
-                    shipping address: {theOrder.city}, {theOrder.shippingAddress}, {theOrder.zip}
-                </Text>
-            </View>
-            <View>
-                <Text>shop bought from: {theOrder.shop.name}</Text>
-            </View>
-            <View>
-                <Text>status: {theOrder.status}</Text>
+            <View style={{ marginLeft: "8%" }}>
+                <View>
+                    <Text>paied: {theOrder.totalPrice}</Text>
+                </View>
+                <View>
+                    <Text>
+                        shipping address: {theOrder.city}, {theOrder.shippingAddress}, {theOrder.zip}
+                    </Text>
+                </View>
+                <View>
+                    <Text>shop bought from: {theOrder.shop.name}</Text>
+                </View>
+                <View>
+                    <Text>status: {theOrder.status}</Text>
+                </View>
             </View>
         </View>
     );

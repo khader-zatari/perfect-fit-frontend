@@ -27,7 +27,7 @@ const AdminAddProduct = (props) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [4, 3],
+            // aspect: [4, 3],
             quality: 1,
         });
 
@@ -35,6 +35,7 @@ const AdminAddProduct = (props) => {
             uploadImageToS3(result)
                 .then((res) => {
                     setTemp(res.src);
+                    console.log(res.src);
                     setImages((prevState) => [...prevState, res.src]);
                     console.log("sucsess");
                 })
@@ -54,11 +55,13 @@ const AdminAddProduct = (props) => {
             secretKey: SECRETKEY,
             successActionStatus: 201,
         };
+        console.log("the imag is", image.uri.substring(image.uri.lastIndexOf(".") + 1));
         const fileName = image.uri.replace(/^.*[\\\/]/, "");
         const file = {
             uri: image.uri,
             name: fileName,
-            type: image.uri.substring(image.uri.lastIndexOf(".") + 1), //extracting filename from image path,
+            type: "image/png",
+            // type: image.uri.substring(image.uri.lastIndexOf(".") + 1), //extracting filename from image path,
         };
 
         return new Promise((resolve, reject) => {

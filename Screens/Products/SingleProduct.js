@@ -19,7 +19,7 @@ const SingleProduct = (props) => {
                         <Image style={styles.image} resizeMode="contain" source={{ uri: product.image ? product.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} />
                     </View> */}
                     <View>
-                        <Banner bannerImages={bannerImages} />
+                        <Banner bannerImages={bannerImages} height={1} />
                     </View>
                     <View style={styles.secondPart}>
                         <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold", textAlign: "center" }}>{product.name}</Text>
@@ -63,13 +63,9 @@ const SingleProduct = (props) => {
                                 </Select>
                             </View>
                         </View>
-                        <View>
-                            <View>
-                                <Text>Body size</Text>
-                            </View>
-                            <View>
-                                <Text>{product.price} NIS</Text>
-                            </View>
+
+                        <View style={{ flex: 1, flexDirection: "row-reverse" }}>
+                            <Text style={{ fontWeight: "400", fontSize: 18, marginRight: "10%", marginBottom: 20 }}>{product.price} NIS</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
