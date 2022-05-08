@@ -29,7 +29,7 @@ const ProductContainer = (props) => {
                 .then((res) => setProducts(res.data))
                 .catch((error) => console.log(error.response.data));
             return () => {
-                setProducts();
+                setProducts([]);
             };
         }, [])
     );

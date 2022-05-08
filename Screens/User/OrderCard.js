@@ -33,15 +33,48 @@
 //     text: { paddingTop: 10, fontWeight: "bold" },
 // });
 // export default OrderCard;
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
+import { Select, CheckIcon } from "native-base";
 import OrderCardItem from "./OrderCardItem";
-
+import { connect } from "react-redux";
+import axios from "axios";
+import baseURL from "../../assets/baseUrl";
 const { width, height } = Dimensions.get("window");
 
 const OrderCard = (props) => {
+    const [statusSelected, setStatusSelected] = useState(null);
+
+    const statusArr = ["NOT SHIPPED", "SHIPPED"];
     const orderItems = props.order.orderItems;
     const theOrder = props.order;
+    useEffect(() => {
+        if (theOrder.status == 3) {
+            setStatusSelected("NOT SHIPPED");
+        }
+        if (theOrder.status == 2) {
+            setStatusSelected("SHIPPED");
+        }
+
+        return () => {
+            setStatusSelected();
+        };
+    }, []);
+
+    const changeStatus = (stat) => {
+        axios
+            .put(`${baseURL}orders/${theOrder._id}`, { status: stat })
+            .then((res) => {
+                if (res.status == 200) {
+                    console.log("success update status");
+                    setStatusSelected(stat);
+                }
+            })
+            .catch((error) => {
+                console.log("error updating status");
+            });
+    };
+    //useeffect
     //shipping address
     //order container
     return (
@@ -68,12 +101,41 @@ const OrderCard = (props) => {
                 <View>
                     <Text>shop bought from: {theOrder.shop.name}</Text>
                 </View>
-                <View>
-                    <Text>status: {theOrder.status}</Text>
-                </View>
+                {props.theUser[0].isAdmin ? (
+                    <View>
+                        <Select
+                            key="status"
+                            selectedValue={statusSelected}
+                            accessibilityLabel="status"
+                            placeholder="status"
+                            color="black"
+                            _selectedItem={{
+                                bg: "teal.600",
+                                endIcon: <CheckIcon size="5" />,
+                            }}
+                            mt={1}
+                            onValueChange={(stat) => changeStatus(stat)}
+                        >
+                            {statusArr.map((item) => {
+                                return <Select.Item label={item} value={item} key={item} />;
+                            })}
+                        </Select>
+                    </View>
+                ) : (
+                    <View>
+                        <Text>status: {statusSelected}</Text>
+                    </View>
+                )}
             </View>
         </View>
     );
+};
+
+const mapStateToProps = (state) => {
+    const { theUser } = state;
+    return {
+        theUser: theUser,
+    };
 };
 
 const styles = StyleSheet.create({
@@ -107,4 +169,5 @@ const styles = StyleSheet.create({
     rightLeftDownTextContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
     rightRight: { flex: 3, justifyContent: "center", alignItems: "center" },
 });
-export default OrderCard;
+
+export default connect(mapStateToProps, null)(OrderCard);
