@@ -79,6 +79,28 @@ const SingleProduct = (props) => {
                             >
                                 Add to Cart
                             </Button>
+                            {props.theUser.length ? (
+                                <Button
+                                    style={styles.button}
+                                    size="16"
+                                    onPress={() => {
+                                        props.addItemToCart(product, color, size);
+                                        props.navigation.navigate("Vto", { user: props.theUser, productImageUrl: product.image, productId: product._id });
+                                    }}
+                                >
+                                    Try It
+                                </Button>
+                            ) : (
+                                <Button
+                                    style={styles.button}
+                                    size="16"
+                                    onPress={() => {
+                                        props.navigation.navigate("UserProfile");
+                                    }}
+                                >
+                                    LogIn To Try it
+                                </Button>
+                            )}
                         </View>
                         <View style={styles.descriptionContainer}>
                             <Text>{product.description}</Text>
@@ -99,9 +121,10 @@ const mapDispachToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-    const { cartItems } = state;
+    const { theUser, cartItems } = state;
     return {
         cartItems: cartItems,
+        theUser: theUser,
     };
 };
 const styles = StyleSheet.create({

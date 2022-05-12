@@ -24,6 +24,15 @@ const AdminProducts = (props) => {
             };
         }, [])
     );
+    const deleteProduct = (id) => {
+        axios
+            .delete(`${baseURL}products/${id}`)
+            .then((res) => {
+                const products = products.filter((item) => item._id !== id);
+                setProducts(products);
+            })
+            .catch((error) => console.log(error));
+    };
 
     return (
         <SafeAreaView>
@@ -40,7 +49,7 @@ const AdminProducts = (props) => {
                             Add Product
                         </Button>
                     </View>
-                    <View>{products != null ? <AdminProductList products={products} /> : null}</View>
+                    <View>{products != null ? <AdminProductList products={products} delete={deleteProduct} /> : null}</View>
                 </View>
             </ScrollView>
         </SafeAreaView>

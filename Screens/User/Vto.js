@@ -17,19 +17,20 @@ const Vto = (props) => {
     const [showCamera, setShowCamera] = useState(false);
     const cameraRef = useRef(null);
 
-    const [personImage, setPersonImage] = useState(null);
-    const [vtoImage, setVtoImage] = useState(null);
+    const [personImage, setPersonImage] = useState("");
+    const [vtoImage, setVtoImage] = useState("");
 
-    const user = props.route.params.user; // redux
-    // const clothImage = props.route.params.clothImage; //redux
+    const productImageUrl = props.route.params.productImageUrl;
+    const productId = props.route.params.productId;
+    const user = props.route.params.user[0];
 
     useFocusEffect(
         useCallback(() => {
+            setVtoImage("");
             axios
                 .get(`${baseURL}users/${user._id}`)
                 .then((res) => {
                     setPersonImage(res.data.personImage);
-                    setVtoImage(res.data.vtoImage);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -41,28 +42,10 @@ const Vto = (props) => {
             })();
             return () => {
                 setPersonImage();
-                setVtoImage();
                 setHasPermission();
             };
         }, [])
     );
-
-    // useEffect(() => {
-    //     axios
-    //         .get(`${baseURL}users/${user._id}`)
-    //         .then((res) => {
-    //             setPersonImage(res.data.personImage);
-    //             setVtoImage(res.data.vtoImage);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-
-    //     (async () => {
-    //         const { status } = await Camera.requestCameraPermissionsAsync();
-    //         setHasPermission(status === "granted");
-    //     })();
-    // }, []);
 
     if (hasPermission === null) {
         return <View />;
@@ -95,6 +78,7 @@ const Vto = (props) => {
                 uploadImageToS3(formData)
                     .then((res) => {
                         //add the personImage uri to the database for the user.
+                        setPersonImage(res.src);
 
                         axios
                             .put(`${baseURL}users/${user._id}`, { personImage: res.src })
@@ -133,6 +117,8 @@ const Vto = (props) => {
                 .then((res) => {
                     console.log(res.src);
                     //add the personImage uri to the database for the user.
+                    setPersonImage(res.src);
+                    console.log("PersonImage = ", personImage);
                     axios
                         .put(`${baseURL}users/${user._id}`, { personImage: res.src })
                         .then((res) => {
@@ -187,23 +173,32 @@ const Vto = (props) => {
         });
     };
 
-    const tryIt = async (clothName, personName, clothId, personId) => {
-        //url to the person url
-        //url to the cloth url
-        //id to cloth
-        //id to person
+    const tryIt = (clothImageUrl, personImageUrl, clothId, personId) => {
+        var personName = "";
+        var clothName = "";
+        if (personImageUrl.includes("%2F")) {
+            personName = personImageUrl.split("%2F").pop();
+        } else {
+            personName = personImageUrl.split("/").pop();
+        }
+        if (clothImageUrl.includes("%2F")) {
+            clothName = clothImageUrl.split("%2F").pop();
+        } else {
+            clothName = clothImageUrl.split("/").pop();
+        }
+
+        console.log("fuck");
+        console.log(personName);
+        console.log(clothName);
+        console.log(clothId);
+        console.log(personId);
+        console.log("you");
 
         axios
-            .get(`${baseURL}Files/${clothName}/${personName}/${clothId}/${personId}`)
+            .get(`${baseURL}Files/${clothName}/${personName}/${String(clothId)}/${String(personId)}`)
             .then((res) => {
-                axios
-                    .put(`${baseURL}user/${user._id}`, {})
-                    .then((res) => {
-                        console.log("vto photo is updated in DB");
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                setVtoImage("https://pfakhader.s3.eu-west-1.amazonaws.com/uploads/" + String(personId) + "-" + String(clothId) + "-" + "VTO.jpg");
+                return;
             })
             .catch((error) => {
                 console.log(error);
@@ -249,7 +244,11 @@ const Vto = (props) => {
                                         />
                                     )}
                                 </View>
-                            ) : null}
+                            ) : (
+                                <View>
+                                    <Text>please upload an image for yourelf</Text>
+                                </View>
+                            )}
                             <View style={styles.buttonsContainerSecond}>
                                 <View style={styles.buttonContainerSecond}>
                                     <Button style={styles.buttonSecond} size="10" onPress={() => setShowCamera(true)}>
@@ -266,7 +265,15 @@ const Vto = (props) => {
 
                             <View style={styles.buttonsContainerSecond}>
                                 <View style={{ flex: 1, alignItems: "center", width: "100%", justifyContent: "center" }}>
-                                    <Button style={styles.buttonSecond} size="10" on press={tryIt}>
+                                    <Button
+                                        style={styles.buttonSecond}
+                                        size="10"
+                                        onPress={() => {
+                                            console.log("in");
+                                            tryIt(productImageUrl, personImage, productId, user._id);
+                                            console.log("out");
+                                        }}
+                                    >
                                         Generate Photo
                                     </Button>
                                 </View>
