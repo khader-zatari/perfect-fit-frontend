@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Button, Pressable, Modal, ScrollView } from "react-native";
-import ProductCard from "../Products/ProductCard";
+import ProductCardAdmin from "./ProductCardAdmin";
 
 const { width } = Dimensions.get("window");
 const AdminProductList = (props) => {
@@ -10,8 +10,8 @@ const AdminProductList = (props) => {
         <View style={styles.container}>
             {products.map((item) => {
                 return (
-                    <TouchableOpacity >
-                        <ProductCard {...item} key={item._id} delete={props.delete} />
+                    <TouchableOpacity>
+                        <ProductCardAdmin {...item} key={item._id} delete={props.delete} />
                     </TouchableOpacity>
                 );
             })}
