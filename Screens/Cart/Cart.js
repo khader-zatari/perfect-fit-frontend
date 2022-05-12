@@ -1,5 +1,5 @@
-import React, { useState, useEffect , useCallback } from "react";
-import { Text, View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from "react-native";
 import ProductCartCard from "./ProductCartCard";
 import ProductCartList from "./ProductCartList";
 import { Button } from "native-base";
@@ -89,6 +89,13 @@ const Cart = (props) => {
                                 <Text>{total} NIS</Text>
                             </View>
 
+                            <TouchableOpacity
+                                onPress={() => {
+                                    props.clearCart();
+                                }}
+                            >
+                                <Text style={{ color: "red" }}>Clear Cart</Text>
+                            </TouchableOpacity>
                             <View style={styles.buttonContainer}>
                                 {props.theUser.length ? (
                                     <Button style={styles.button} size="16" onPress={constructOrder}>
