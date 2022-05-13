@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Button } from "native-base";
 import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,6 +6,7 @@ import axios from "axios";
 import baseURL from "../../assets/baseUrl";
 import { THEUSERLOGIN } from "../../Redux/constants";
 import { connect } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
 const LogIn = (props) => {
@@ -13,7 +14,14 @@ const LogIn = (props) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
-
+    useFocusEffect(
+        useCallback(() => {
+            return () => {
+                setEmail("");
+                setPassword("");
+            };
+        }, [])
+    );
     const check = () => {
         const theEmail = {
             email: email,
@@ -48,11 +56,11 @@ const LogIn = (props) => {
                     <View>
                         <View style={styles.input}>
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>Email</Text>
-                            <TextInput style={styles.TextInput} placeholder="Email" id="email" name="email" onChangeText={(text) => setEmail(text.toLowerCase())} />
+                            <TextInput style={styles.TextInput} placeholder="Email" id="email" name="email" value={email} onChangeText={(text) => setEmail(text.toLowerCase())} />
                         </View>
                         <View style={styles.input}>
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>Password</Text>
-                            <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Password" id="password" name="password" onChangeText={(text) => setPassword(text)} />
+                            <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Password" id="password" name="password" value={password} onChangeText={(text) => setPassword(text)} />
                         </View>
                     </View>
                     <View style={styles.secondPart}>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { Button } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
+import { CLEAR_USER } from "../../Redux/constants";
 const { height } = Dimensions.get("window");
+
 const UserProfile = (props) => {
     const user = props.theUser[0];
     return (
@@ -97,6 +99,15 @@ const UserProfile = (props) => {
                         Orders
                     </Button>
                 </View>
+                <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={() => {
+                        props.navigation.navigate("LogIn");
+                        props.signOut();
+                    }}
+                >
+                    <Text style={{ fontSize: 14 }}>Sign Out</Text>
+                </TouchableOpacity>
             </SafeAreaView>
         </View>
     );
@@ -106,6 +117,13 @@ const mapStateToProps = (state) => {
     const { theUser } = state;
     return {
         theUser: theUser,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOut: () => {
+            dispatch({ type: CLEAR_USER });
+        },
     };
 };
 
@@ -135,4 +153,4 @@ const styles = StyleSheet.create({
 });
 
 // export default UserProfile;
-export default connect(mapStateToProps, null)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

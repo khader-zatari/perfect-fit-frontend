@@ -14,6 +14,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import SearchedProduct from "./SearchedProducts.js";
+import CategoryFilter from "./CategoryFilter.js";
 
 const { height } = Dimensions.get("window");
 
@@ -27,21 +28,27 @@ const ProductContainer = (props) => {
     const [productsFiltered, setProductsFiltered] = useState([]);
     const [focus, setFocus] = useState();
     const bannerData = ["https://i.pinimg.com/originals/79/7d/fc/797dfc84d7a2149d4b77769c213030f4.jpg", "https://creativemachine.co/wp-content/uploads/2020/03/ecommerce_men_s_clothing_banner_template_8_1200x628.jpg", "https://i.pinimg.com/originals/af/16/1a/af161a824e6c3ed7e1ec18f2d94b650c.jpg"];
-
+    const [productsCtg, setProductsCtg] = useState([]);
+    const [categories, setCategories] = useState(["t-shirts", "pants", "Dress"]);
+    const [active, setActive] = useState();
     useFocusEffect(
         useCallback(() => {
             setFocus(false);
+            setActive(-1);
             axios
                 .get(`${baseURL}products/store/${personType}/${store._id}`)
                 .then((res) => {
                     setProducts(res.data);
                     setProductsFiltered(res.data);
+                    setProductsCtg(res.data);
                 })
                 .catch((error) => console.log(error.response.data));
             return () => {
                 setProducts([]);
                 setProductsFiltered([]);
+                setProductsCtg([]);
                 setFocus();
+                setActive();
             };
         }, [])
     );
@@ -56,18 +63,18 @@ const ProductContainer = (props) => {
     const onBlur = () => {
         setFocus(false);
     };
-
-    // useEffect(() => {
-    //     axios
-    //         .get(`${baseURL}products/store/${personType}/${store._id}`)
-    //         .then((res) => setProducts(res.data))
-    //         .catch((error) => console.log(error.response.data));
-    //     setBannerImages(store.bannerImages ? store.bannerImages : ["https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png"]);
-
-    //     return () => {
-    //         setProducts();
-    //     };
-    // }, []);
+    const changeCtg = (ctg) => {
+        {
+            ctg === "all"
+                ? [setProductsCtg(products), setActive(true)]
+                : [
+                      setProductsCtg(
+                          products.filter((i) => i.category === ctg),
+                          setActive(true)
+                      ),
+                  ];
+        }
+    };
 
     return (
         <SafeAreaView>
@@ -107,10 +114,18 @@ const ProductContainer = (props) => {
                             <View>
                                 <Banner bannerImages={bannerImages} height={2} />
                             </View>
-
-                            <View style={{ flexDirection: "row" }}>
-                                <ProductList navigation={props.navigation} products={products} personType={personType} store={store} />
+                            <View>
+                                <CategoryFilter categories={categories} categoryFilter={changeCtg} productsCtg={productsCtg} active={active} setActive={setActive} />
                             </View>
+                            {productsCtg.length > 0 ? (
+                                <View style={{ flexDirection: "row" }}>
+                                    <ProductList navigation={props.navigation} products={products} personType={personType} store={store} />
+                                </View>
+                            ) : (
+                                <View style={[styles.center, { height: height / 2 }]}>
+                                    <Text>No products found</Text>
+                                </View>
+                            )}
                         </>
                     )}
                 </View>
@@ -127,6 +142,10 @@ const mapStateToProps = (state) => {
 const styles = StyleSheet.create({
     container: {
         marginTop: height / 20,
+    },
+    center: {
+        justifyContent: "center",
+        alignItems: "center",
     },
 });
 
