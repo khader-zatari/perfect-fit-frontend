@@ -26,7 +26,6 @@ const Vto = (props) => {
 
     useFocusEffect(
         useCallback(() => {
-            setVtoImage("");
             axios
                 .get(`${baseURL}users/${user._id}`)
                 .then((res) => {
@@ -43,6 +42,7 @@ const Vto = (props) => {
             return () => {
                 setPersonImage();
                 setHasPermission();
+                setVtoImage();
             };
         }, [])
     );

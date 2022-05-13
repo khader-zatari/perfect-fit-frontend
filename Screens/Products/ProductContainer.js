@@ -1,5 +1,6 @@
-import react, { useState, useEffect , useCallback } from "react";
+import react, { useState, useEffect, useCallback } from "react";
 import { Text, View, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { VStack, Input, Button, IconButton, Icon, NativeBaseProvider, Center, Box, Divider, Heading, HStack } from "native-base";
 import Banner from "../../Shared/Banner.js";
 import ProductCard from "./ProductCard.js";
 import ProductList from "./ProductList.js";
@@ -10,6 +11,9 @@ import axios from "axios";
 import baseURL from "../../assets/baseUrl";
 import { connect } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import SearchedProduct from "./SearchedProducts.js";
 
 const { height } = Dimensions.get("window");
 
@@ -20,19 +24,38 @@ const ProductContainer = (props) => {
     //this in the database rest api
     const [products, setProducts] = useState([]);
     const [bannerImages, setBannerImages] = useState([]);
+    const [productsFiltered, setProductsFiltered] = useState([]);
+    const [focus, setFocus] = useState();
     const bannerData = ["https://i.pinimg.com/originals/79/7d/fc/797dfc84d7a2149d4b77769c213030f4.jpg", "https://creativemachine.co/wp-content/uploads/2020/03/ecommerce_men_s_clothing_banner_template_8_1200x628.jpg", "https://i.pinimg.com/originals/af/16/1a/af161a824e6c3ed7e1ec18f2d94b650c.jpg"];
 
     useFocusEffect(
         useCallback(() => {
+            setFocus(false);
             axios
                 .get(`${baseURL}products/store/${personType}/${store._id}`)
-                .then((res) => setProducts(res.data))
+                .then((res) => {
+                    setProducts(res.data);
+                    setProductsFiltered(res.data);
+                })
                 .catch((error) => console.log(error.response.data));
             return () => {
                 setProducts([]);
+                setProductsFiltered([]);
+                setFocus();
             };
         }, [])
     );
+    const searchProduct = (text) => {
+        setProductsFiltered(products.filter((i) => i.name.toLowerCase().includes(text.toLowerCase())));
+    };
+
+    const openList = () => {
+        setFocus(true);
+    };
+
+    const onBlur = () => {
+        setFocus(false);
+    };
 
     // useEffect(() => {
     //     axios
@@ -51,14 +74,45 @@ const ProductContainer = (props) => {
             <ScrollView bounces={true}>
                 <View style={styles.container}>
                     <Header logo={store.image} />
-                    <SearchBar />
-                    <View>
-                        <Banner bannerImages={bannerImages} height={2} />
-                    </View>
+                    <Center flex={1} px="2">
+                        <VStack
+                            my="4"
+                            space={5}
+                            w="100%"
+                            maxW="300px"
+                            divider={
+                                <Box px="2">
+                                    <Divider />
+                                </Box>
+                            }
+                        >
+                            <Input
+                                onFocus={openList}
+                                onChangeText={(text) => searchProduct(text)}
+                                placeholder="Search Products"
+                                width="100%"
+                                borderRadius="4"
+                                py="3"
+                                px="1"
+                                fontSize="14"
+                                InputLeftElement={<Icon m="2" ml="3" size="6" color="gray.400" as={<MaterialIcons name="search" />} />}
+                                InputRightElement={focus == true ? <Icon onPress={onBlur} size="5" as={<MaterialIcons name="close" />} /> : null}
+                            />
+                        </VStack>
+                    </Center>
+                    {focus == true ? (
+                        <SearchedProduct navigation={props.navigation} productsFiltered={productsFiltered} personType={personType} store={store} />
+                    ) : (
+                        <>
+                            <View>
+                                <Banner bannerImages={bannerImages} height={2} />
+                            </View>
 
-                    <View style={{ flexDirection: "row" }}>
-                        <ProductList navigation={props.navigation} products={products} personType={personType} store={store} />
-                    </View>
+                            <View style={{ flexDirection: "row" }}>
+                                <ProductList navigation={props.navigation} products={products} personType={personType} store={store} />
+                            </View>
+                        </>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
