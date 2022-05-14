@@ -20,6 +20,7 @@ const { height } = Dimensions.get("window");
 
 const ProductContainer = (props) => {
     const store = props.route.params.store;
+
     const personType = props.route.params.personType;
 
     //this in the database rest api
@@ -112,7 +113,7 @@ const ProductContainer = (props) => {
                     ) : (
                         <>
                             <View>
-                                <Banner bannerImages={bannerImages} height={2} />
+                                <Banner bannerImages={store.BannerImages ? store.BannerImages : [""]} height={2} />
                             </View>
                             <View>
                                 <CategoryFilter categories={categories} categoryFilter={changeCtg} productsCtg={productsCtg} active={active} setActive={setActive} />

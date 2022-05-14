@@ -74,7 +74,6 @@ const OrderCardItem = (props) => {
             {item ? (
                 <View style={styles.container}>
                     <View style={styles.imageContainer}>
-                        {console.log(item.product.image)}
                         <Image source={{ uri: item.product.image ? item.product.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" }} style={styles.image} />
                     </View>
                     <View style={styles.right}>

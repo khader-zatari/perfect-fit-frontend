@@ -80,16 +80,29 @@ const SingleProduct = (props) => {
                                 Add to Cart
                             </Button>
                             {props.theUser.length ? (
-                                <Button
-                                    style={styles.button}
-                                    size="16"
-                                    onPress={() => {
-                                        props.addItemToCart(product, color, size);
-                                        props.navigation.navigate("Vto", { user: props.theUser, productImageUrl: product.image, productId: product._id });
-                                    }}
-                                >
-                                    Try It
-                                </Button>
+                                <>
+                                    <Button
+                                        style={styles.button}
+                                        size="16"
+                                        onPress={() => {
+                                            props.navigation.navigate("Vto", { user: props.theUser, productImageUrl: product.image, productId: product._id });
+                                        }}
+                                    >
+                                        Try It
+                                    </Button>
+                                    <View>
+                                        <Button
+                                            backgroundColor={"black"}
+                                            style={{ width: "40%" }}
+                                            size="10"
+                                            onPress={() => {
+                                                props.navigation.navigate("TriedPhoto", { userId: props.theUser[0]._id, productId: product._id });
+                                            }}
+                                        >
+                                            check tried photo
+                                        </Button>
+                                    </View>
+                                </>
                             ) : (
                                 <Button
                                     style={styles.button}

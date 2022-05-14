@@ -31,7 +31,7 @@ const UserProfileNavigator = () => {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="LogIn" component={LogIn} />
             <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
-            <Stack.Screen name="Vto" component={Vto} />
+            
             <Stack.Screen name="Vto1" component={Vto1} />
             <Stack.Screen name="Admin" component={Admin} />
             <Stack.Screen name="AdminOrders" component={AdminOrders} />

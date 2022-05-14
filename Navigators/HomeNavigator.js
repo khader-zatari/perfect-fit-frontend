@@ -7,6 +7,8 @@ import MenWomenKids from "../Screens/Openning/MenWomenKids";
 import ProductContainer from "../Screens/Products/ProductContainer";
 import StoreList from "../Screens/Openning/StoreList";
 import { Button, Text } from "react-native";
+import Vto from "../Screens/User/Vto";
+import TriedPhoto from "../Screens/Products/TriedPhoto";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
@@ -40,7 +42,10 @@ const HomeNavigator = () => {
                     headerShown: true,
                 }}
             />
+
             <Stack.Screen name="SingleProduct" component={SingleProduct} />
+            <Stack.Screen name="Vto" component={Vto} />
+            <Stack.Screen name="TriedPhoto" component={TriedPhoto} />
         </Stack.Navigator>
     );
 };
