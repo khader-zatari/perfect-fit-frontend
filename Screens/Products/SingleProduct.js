@@ -80,9 +80,19 @@ const SingleProduct = (props) => {
                                 Add to Cart
                             </Button>
                             {props.theUser.length ? (
-                                <>
+                                <View style={styles.selectContainer}>
                                     <Button
-                                        style={styles.button}
+                                        backgroundColor={"#61B0B7"}
+                                        style={styles.selectLeft}
+                                        size="16"
+                                        onPress={() => {
+                                            props.navigation.navigate("TriedPhoto", { userId: props.theUser[0]._id, productId: product._id });
+                                        }}
+                                    >
+                                        check tried photo
+                                    </Button>
+                                    <Button
+                                        style={styles.selectRight}
                                         size="16"
                                         onPress={() => {
                                             props.navigation.navigate("Vto", { user: props.theUser, productImageUrl: product.image, productId: product._id });
@@ -90,19 +100,7 @@ const SingleProduct = (props) => {
                                     >
                                         Try It
                                     </Button>
-                                    <View>
-                                        <Button
-                                            backgroundColor={"black"}
-                                            style={{ width: "40%" }}
-                                            size="10"
-                                            onPress={() => {
-                                                props.navigation.navigate("TriedPhoto", { userId: props.theUser[0]._id, productId: product._id });
-                                            }}
-                                        >
-                                            check tried photo
-                                        </Button>
-                                    </View>
-                                </>
+                                </View>
                             ) : (
                                 <Button
                                     style={styles.button}
@@ -115,6 +113,15 @@ const SingleProduct = (props) => {
                                 </Button>
                             )}
                         </View>
+                        <View
+                            style={{
+                                borderBottomColor: "black",
+                                borderBottomWidth: 1,
+                                opacity: 0.3,
+                                width: "70%",
+                                alignSelf: "center",
+                            }}
+                        />
                         <View style={styles.descriptionContainer}>
                             <Text>{product.description}</Text>
                         </View>

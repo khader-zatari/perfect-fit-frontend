@@ -15,6 +15,7 @@ const SearchedProduct = (props) => {
                 productsFiltered.map((item) => {
                     return (
                         <TouchableOpacity
+                            key={Math.random()}
                             onPress={() => {
                                 props.navigation.navigate("SingleProduct", { product: item, personType: props.personType, store: props.store });
                             }}
