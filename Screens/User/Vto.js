@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, ScrollView, Dimensions } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, ScrollView, Dimensions, ActivityIndicator } from "react-native";
 import { Button } from "native-base";
 import { Camera } from "expo-camera";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -248,7 +248,7 @@ const Vto = (props) => {
                                     )}
                                 </View>
                             ) : (
-                                <View>
+                                <View style={{ justifyContent: "center", alignSelf: "center" }}>
                                     <Text>please upload an image for yourelf</Text>
                                 </View>
                             )}
@@ -266,8 +266,8 @@ const Vto = (props) => {
                             </View>
                             {vtoImage != "" ? <View style={{ width: "90%", height: height / 2, alignSelf: "center", borderColor: "#000" }}>{Image && <Image source={{ uri: vtoImage }} style={{ resizeMode: "contain", width: "100%", height: "100%" }} />}</View> : null}
                             {wait ? (
-                                <View style={{ alignContent: "center", alignSelf: "center", alignItems: "center" }}>
-                                    <Text>wait to generate the photo</Text>
+                                <View style={{ justifyContent: "center", alignSelf: "center", margin: "auto", marginBottom: 15 }}>
+                                    <ActivityIndicator color={"#000"} size="large" />
                                 </View>
                             ) : null}
                             <View style={styles.buttonsContainerSecond}>
