@@ -20,6 +20,8 @@ const Vto = (props) => {
     const [personImage, setPersonImage] = useState("");
     const [vtoImage, setVtoImage] = useState("");
 
+    const [wait, setWait] = useState(false);
+
     const productImageUrl = props.route.params.productImageUrl;
     const productId = props.route.params.productId;
     const user = props.route.params.user[0];
@@ -186,7 +188,7 @@ const Vto = (props) => {
         } else {
             clothName = clothImageUrl.split("/").pop();
         }
-
+        setWait(true);
         console.log("fuck");
         console.log(personName);
         console.log(clothName);
@@ -197,6 +199,7 @@ const Vto = (props) => {
         axios
             .get(`${baseURL}Files/${clothName}/${personName}/${String(clothId)}/${String(personId)}`)
             .then((res) => {
+                setWait(false);
                 setVtoImage("https://pfakhader.s3.eu-west-1.amazonaws.com/uploads/" + String(personId) + "-" + String(clothId) + "-" + "VTO.jpg");
                 return;
             })
@@ -262,7 +265,11 @@ const Vto = (props) => {
                                 </View>
                             </View>
                             {vtoImage != "" ? <View style={{ width: "90%", height: height / 2, alignSelf: "center", borderColor: "#000" }}>{Image && <Image source={{ uri: vtoImage }} style={{ resizeMode: "contain", width: "100%", height: "100%" }} />}</View> : null}
-
+                            {wait ? (
+                                <View style={{ alignContent: "center", alignSelf: "center", alignItems: "center" }}>
+                                    <Text>wait to generate the photo</Text>
+                                </View>
+                            ) : null}
                             <View style={styles.buttonsContainerSecond}>
                                 <View style={{ flex: 1, alignItems: "center", width: "100%", justifyContent: "center" }}>
                                     <Button
