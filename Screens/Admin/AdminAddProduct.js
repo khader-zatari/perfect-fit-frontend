@@ -15,6 +15,7 @@ const AdminAddProduct = (props) => {
 
     const [category, setCategory] = useState(null);
     const [color, setColor] = useState(null);
+    const [size, setSize] = useState(null);
     const [brand, setBrand] = useState(null);
     const [name, setName] = useState(null);
     const [description, setDescription] = useState(null);
@@ -82,7 +83,22 @@ const AdminAddProduct = (props) => {
                 });
         });
     };
-
+    const textFun = (text, colorOrSize) => {
+        var res = "";
+        //res += 'as Photo'
+        if (colorOrSize == "color") {
+            text = text + ",As Photo";
+            res = text.replace(/\s/g, "");
+            res = res.split(",");
+            setColor(res);
+        }
+        if ((colorOrSize = "size")) {
+            text = text.toUpperCase();
+            res = text.replace(/\s/g, "");
+            res = res.split(",");
+            setSize(res);
+        }
+    };
     return (
         <SafeAreaView>
             <ScrollView>
@@ -107,44 +123,6 @@ const AdminAddProduct = (props) => {
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>price</Text>
                             <TextInput style={styles.TextInput} placeholder="price" id="price" name="price" onChangeText={(text) => setPrice(text)} />
                         </View>
-                        <View>
-                            <Select
-                                key="categoy"
-                                selectedValue={category}
-                                accessibilityLabel="category"
-                                placeholder="category"
-                                color="black"
-                                _selectedItem={{
-                                    bg: "teal.600",
-                                    endIcon: <CheckIcon size="5" />,
-                                }}
-                                mt={1}
-                                onValueChange={(category) => setCategory(category)}
-                            >
-                                {categories.map((item) => {
-                                    return <Select.Item label={item} value={item} key={item} />;
-                                })}
-                            </Select>
-                        </View>
-                        <View>
-                            <Select
-                                key="color"
-                                selectedValue={color}
-                                accessibilityLabel="Color"
-                                placeholder="Color"
-                                color="black"
-                                _selectedItem={{
-                                    bg: "teal.600",
-                                    endIcon: <CheckIcon size="5" />,
-                                }}
-                                mt={1}
-                                onValueChange={(color) => setColor(color)}
-                            >
-                                {colors.map((item) => {
-                                    return <Select.Item label={item} value={item} key={item} />;
-                                })}
-                            </Select>
-                        </View>
                         <View style={styles.photoUploadContainer}>
                             <View style={styles.buttonphotoUploadContainer}>
                                 <Button style={{ width: "90%" }} size="10" onPress={pickImage}>
@@ -165,6 +143,33 @@ const AdminAddProduct = (props) => {
                                 {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
                             </View>
                         </View>
+                        <View style={{ marginBottom: 10 }}>
+                            <Select
+                                key="categoy"
+                                selectedValue={category}
+                                accessibilityLabel="category"
+                                placeholder="category"
+                                color="black"
+                                _selectedItem={{
+                                    bg: "teal.600",
+                                    endIcon: <CheckIcon size="5" />,
+                                }}
+                                mt={1}
+                                onValueChange={(category) => setCategory(category)}
+                            >
+                                {categories.map((item) => {
+                                    return <Select.Item label={item} value={item} key={item} />;
+                                })}
+                            </Select>
+                        </View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>color</Text>
+                            <TextInput style={styles.TextInput} placeholder="red , yellow , ..." id="color" name="color" onChangeText={(text) => textFun(text, "color")} />
+                        </View>
+                        <View style={styles.input}>
+                            <Text style={{ paddingVertical: 10, fontSize: 11 }}>size</Text>
+                            <TextInput style={styles.TextInput} placeholder="S , M , L , ..." id="size" name="size" onChangeText={(text) => textFun(text, "size")} />
+                        </View>
                     </View>
                     <View style={styles.secondPart}>
                         <View style={styles.buttonContainer}>
@@ -172,7 +177,7 @@ const AdminAddProduct = (props) => {
                                 style={styles.button}
                                 size="12"
                                 onPress={() => {
-                                    props.navigation.navigate("AdminAddProductSecond", { description: description, price: price, color: color, category: category, brand: brand, name: name, images: images, user: user });
+                                    props.navigation.navigate("AdminAddProductSecond", { description: description, price: price, color: color, category: category, brand: brand, name: name, images: images, user: user, size: size });
                                 }}
                             >
                                 <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>NEXT STEP</Text>

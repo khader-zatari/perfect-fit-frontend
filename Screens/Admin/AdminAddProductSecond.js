@@ -24,8 +24,6 @@ const AdminAddProductSecond = (props) => {
     const [personType, setPersonType] = useState([]);
     const [pantsSize, setpantsSize] = useState([]);
 
-    const pantsSizes = ["30", "32", "34", "36", "38", "40"];
-    const tShirtSizes = ["S", "L", "XL", "XXL"];
     const personTypes = ["Men", "Women", "Kids"];
 
     const addProduct = () => {
@@ -39,7 +37,7 @@ const AdminAddProductSecond = (props) => {
             category: information.category,
             color: information.color,
             admin: information.user._id,
-            size: tShirtSize.map((item) => item.value).length > 0 ? tShirtSize.map((item) => item.value) : pantsSize.map((item) => item.value),
+            size: information.size,
             personType: personType.map((item) => item.value),
         };
         console.log("the data is", data);
@@ -68,14 +66,6 @@ const AdminAddProductSecond = (props) => {
                 <ScrollView>
                     <View style={{ marginVertical: 20 }}>
                         <SelectMultiple items={personTypes} selectedItems={personType} onSelectionsChange={personTypeFun} />
-                    </View>
-
-                    <View style={{ marginVertical: 20 }}>
-                        <SelectMultiple items={tShirtSizes} selectedItems={tShirtSize} onSelectionsChange={tShirtSizeFun} />
-                    </View>
-
-                    <View style={{ marginVertical: 20 }}>
-                        <SelectMultiple items={pantsSizes} selectedItems={pantsSize} onSelectionsChange={pantsSizeFun} />
                     </View>
 
                     <View style={styles.secondPart}>
