@@ -14,6 +14,7 @@ import AdminAddProduct from "../Screens/Admin/AdminAddProduct";
 import AdminAddProductSecond from "../Screens/Admin/AdminAddProductSecond";
 import SingleOrder from "../Screens/User/SingleOrder";
 import AccountInformation from "../Screens/User/AccountInformation";
+import ForgetPassword from "../Screens/User/ForgetPassword";
 const Stack = createNativeStackNavigator();
 
 const UserProfileNavigator = () => {
@@ -31,7 +32,7 @@ const UserProfileNavigator = () => {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="LogIn" component={LogIn} />
             <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
-            
+
             <Stack.Screen name="Vto1" component={Vto1} />
             <Stack.Screen name="Admin" component={Admin} />
             <Stack.Screen name="AdminOrders" component={AdminOrders} />
@@ -41,6 +42,7 @@ const UserProfileNavigator = () => {
             <Stack.Screen name="SingleOrder" component={SingleOrder} />
             <Stack.Screen name="AccountInformation" component={AccountInformation} />
             <Stack.Screen name="Orders" component={Orders} />
+            <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
         </Stack.Navigator>
     );
 };

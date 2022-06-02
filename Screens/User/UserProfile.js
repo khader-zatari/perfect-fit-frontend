@@ -50,7 +50,7 @@ const UserProfile = (props) => {
                 </View>
                 {!user.isAdmin ? (
                     <>
-                        <View style={styles.buttonContainer}>
+                        {/* <View style={styles.buttonContainer}>
                             <Button
                                 style={styles.button}
                                 size="16"
@@ -60,7 +60,7 @@ const UserProfile = (props) => {
                             >
                                 VTO
                             </Button>
-                        </View>
+                        </View> */}
 
                         {/* <View style={styles.buttonContainer}>
                             <Button

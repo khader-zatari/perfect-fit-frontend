@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Button } from "native-base";
-import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Dimensions, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import baseURL from "../../assets/baseUrl";
@@ -62,6 +62,14 @@ const LogIn = (props) => {
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>Password</Text>
                             <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Password" id="password" name="password" value={password} onChangeText={(text) => setPassword(text)} />
                         </View>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                props.navigation.navigate("ForgetPassword");
+                            }}
+                        >
+                            <Text style={{ fontSize: 11 }}>Forget Password?</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.secondPart}>
                         <View style={styles.buttonContainer}>

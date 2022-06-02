@@ -103,7 +103,7 @@ const SingleProduct = (props) => {
                                 </View>
                             ) : (
                                 <Button
-                                    style={styles.button}
+                                    style={[styles.button, { marginVertical: 10 }]}
                                     size="16"
                                     onPress={() => {
                                         props.navigation.navigate("UserProfile");

@@ -94,7 +94,7 @@ const Cart = (props) => {
                                     props.clearCart();
                                 }}
                             >
-                                <Text style={{ color: "red" }}>Clear Cart</Text>
+                                <Text style={{ color: "red", marginLeft: 15 }}>Clear Cart</Text>
                             </TouchableOpacity>
                             <View style={styles.buttonContainer}>
                                 {props.theUser.length ? (
