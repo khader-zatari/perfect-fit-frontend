@@ -113,6 +113,13 @@ const ProductContainer = (props) => {
                     ) : (
                         <>
                             <View>
+                                <Text>
+                                    {store.city} , {store.address}
+                                </Text>
+                                <Text>{store.phone}</Text>
+                                <Text>{store.storeMessage}</Text>
+                            </View>
+                            <View>
                                 <Banner bannerImages={store.BannerImages ? store.BannerImages : [""]} height={2} />
                             </View>
                             <View>
