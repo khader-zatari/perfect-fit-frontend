@@ -71,6 +71,18 @@ const Cart = (props) => {
             .catch((error) => {
                 console.log("Something went wrong");
             });
+        props.cartItems.forEach((cart) => {
+            axios
+                .put(`${baseURL}products/${cart.product._id}`, { sellCount: 1 })
+                .then((res) => {
+                    if (res.status == 200 || res.status == 201) {
+                        console.log("success");
+                    }
+                })
+                .catch((error) => {
+                    console.log("Something went wrong");
+                });
+        });
     };
 
     return (

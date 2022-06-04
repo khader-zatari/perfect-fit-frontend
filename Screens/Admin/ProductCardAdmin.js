@@ -56,6 +56,9 @@ const ProductCardAdmin = (props) => {
                     <Text style={styles.descriptionText}>{props.name}</Text>
                 </View>
                 <View style={styles.price}>
+                    <Text>order Times {props.sellCount} </Text>
+                </View>
+                <View style={styles.price}>
                     <Text style={styles.priceText}>{props.price} Nis</Text>
                 </View>
             </TouchableOpacity>

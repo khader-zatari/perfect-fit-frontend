@@ -37,17 +37,31 @@ const UserProfile = (props) => {
                         </Button>
                     )}
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        style={styles.button}
-                        size="16"
-                        onPress={() => {
-                            props.navigation.navigate("AccountInformation", { user: user });
-                        }}
-                    >
-                        Profile information
-                    </Button>
-                </View>
+                {user.isAdmin ? (
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            style={styles.button}
+                            size="16"
+                            onPress={() => {
+                                props.navigation.navigate("AccountInformation", { user: user });
+                            }}
+                        >
+                            Store information
+                        </Button>
+                    </View>
+                ) : (
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            style={styles.button}
+                            size="16"
+                            onPress={() => {
+                                props.navigation.navigate("AccountInformation", { user: user });
+                            }}
+                        >
+                            Profile information
+                        </Button>
+                    </View>
+                )}
                 {!user.isAdmin ? (
                     <>
                         {/* <View style={styles.buttonContainer}>

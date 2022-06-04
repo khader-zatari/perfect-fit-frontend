@@ -86,6 +86,9 @@ const SingleProduct = (props) => {
                                         style={styles.selectLeft}
                                         size="16"
                                         onPress={() => {
+                                            console.log("the user is ", props.theUser[0]._id);
+                                            console.log("the product id is ", product._id);
+
                                             props.navigation.navigate("TriedPhoto", { userId: props.theUser[0]._id, productId: product._id });
                                         }}
                                     >

@@ -6,6 +6,7 @@ const TriedPhoto = (props) => {
     const productId = props.route.params.productId;
     const userId = props.route.params.userId;
     const theImage = "https://pfakhader.s3.eu-west-1.amazonaws.com/uploads/" + String(userId) + "-" + String(productId) + "-" + "VTO.jpg";
+    console.log(theImage);
     const [imageNotFound, setImageNotFound] = useState(false);
     const fuck = () => {
         setImageNotFound(true);
