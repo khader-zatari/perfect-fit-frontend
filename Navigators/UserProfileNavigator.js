@@ -11,7 +11,6 @@ import AdminOrders from "../Screens/User/AdminOrders";
 import Orders from "../Screens/User/Orders";
 import AdminProducts from "../Screens/Admin/AdminProducts";
 import AdminAddProduct from "../Screens/Admin/AdminAddProduct";
-import AdminAddProductSecond from "../Screens/Admin/AdminAddProductSecond";
 import SingleOrder from "../Screens/User/SingleOrder";
 import AccountInformation from "../Screens/User/AccountInformation";
 import ForgetPassword from "../Screens/User/ForgetPassword";
@@ -28,6 +27,7 @@ const UserProfileNavigator = () => {
                 headerShown: false,
             }}
         >
+            
             <Stack.Screen name="Userpage" component={UserProfile} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="LogIn" component={LogIn} />
@@ -38,7 +38,7 @@ const UserProfileNavigator = () => {
             <Stack.Screen name="AdminOrders" component={AdminOrders} />
             <Stack.Screen name="AdminProducts" component={AdminProducts} />
             <Stack.Screen name="AdminAddProduct" component={AdminAddProduct} />
-            <Stack.Screen name="AdminAddProductSecond" component={AdminAddProductSecond} />
+
             <Stack.Screen name="SingleOrder" component={SingleOrder} />
             <Stack.Screen name="AccountInformation" component={AccountInformation} />
             <Stack.Screen name="Orders" component={Orders} />
