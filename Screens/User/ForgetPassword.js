@@ -21,7 +21,7 @@ const ForgetPassword = (props) => {
             };
 
             axios
-                .put(`${baseURL}users/password`, user)
+                .put(`${baseURL}users/changePassword`, user)
                 .then((res) => {
                     if (res.status == 200) {
                         console.log("success");

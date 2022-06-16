@@ -10,7 +10,7 @@ const AdminProductList = (props) => {
         <View style={styles.container}>
             {products.map((item) => {
                 return (
-                    <TouchableOpacity>
+                    <TouchableOpacity key={item._id}>
                         <ProductCardAdmin {...item} key={item._id} delete={props.delete} />
                     </TouchableOpacity>
                 );

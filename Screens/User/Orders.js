@@ -63,7 +63,7 @@ const Orders = (props) => {
                 <View style={{ width: "100%", height: "100%" }}>
                     {orders != null ? (
                         orders.map((order) => {
-                            return <OrderCard order={order} />;
+                            return <OrderCard order={order} key={order} />;
                         })
                     ) : (
                         <View>

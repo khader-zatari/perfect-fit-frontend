@@ -9,7 +9,7 @@ const Banner = (props) => {
             <View style={styles.swiper}>
                 <Swiper style={{ height: width / props.height }} showButtons={false} autoplay={true} autoplayTimeout={2}>
                     {props.bannerImages.map((item) => {
-                        return <Image key={item} style={styles.imageBanner} resizeMode="contain" source={{ uri: item }} />;
+                        return <Image key={item} style={styles.imageBanner} resizeMode="cover" source={{ uri: item }} />;
                     })}
                 </Swiper>
                 <View style={{ height: 20 }}></View>

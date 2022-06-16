@@ -30,6 +30,7 @@ const Main = () => {
                 component={CartNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <Icon name="shopping-cart" color={color} size={30} />,
+                    headerShown: true,
                 }}
             />
             <Tab.Screen

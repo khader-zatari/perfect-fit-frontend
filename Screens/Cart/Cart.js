@@ -98,7 +98,7 @@ const Cart = (props) => {
                         </View>
                         <View style={styles.priceAndButton}>
                             <View style={styles.price}>
-                                <Text>{total} NIS</Text>
+                                <Text>Total Price: {total} NIS</Text>
                             </View>
 
                             <TouchableOpacity
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
+        height: height,
     },
     buttonContainer: {
         alignItems: "center",

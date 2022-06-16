@@ -30,17 +30,20 @@ const AccountInformation = (props) => {
         <SafeAreaView>
             <ScrollView>
                 <View style={styles.container}>
-                    <Text style={{ flex: 1 }}>name {user.name}</Text>
-                    <Text style={{ flex: 1 }}>email {user.email}</Text>
-                    <Text style={{ flex: 1 }}>phone {user.phone}</Text>
-                    <Text style={{ flex: 1 }}>addres {user.address}</Text>
-                    <Text style={{ flex: 1 }}>city {user.city}</Text>
-                    <Text style={{ flex: 1 }}>zip {user.zip}</Text>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.headerText}>Profile Information</Text>
+                    </View>
+                    <Text style={{ flex: 1 }}>name: {user.name}</Text>
+                    <Text style={{ flex: 1 }}>email: {user.email}</Text>
+                    <Text style={{ flex: 1 }}>phone: {user.phone}</Text>
+                    <Text style={{ flex: 1 }}>addres: {user.address}</Text>
+                    <Text style={{ flex: 1 }}>city: {user.city}</Text>
+                    <Text style={{ flex: 1 }}>zip: {user.zip}</Text>
                 </View>
                 {user.isAdmin ? (
                     <>
                         <View>
-                            <Text style={{ marginLeft: "5%" }}>Update information for the Store</Text>
+                            <Text style={{ marginLeft: "5%", fontSize: 16 }}>Update information for the Store</Text>
                             <TextInput
                                 multiline={true}
                                 numberOfLines={4}
@@ -66,11 +69,11 @@ const AccountInformation = (props) => {
 };
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "column-reverse",
-        alignSelf: "center",
+        flex: 1,
+        marginTop: "4%",
+        marginLeft: "4%",
         justifyContent: "center",
-        height: height / 2,
-        width: width,
+        marginBottom: "15%",
     },
 
     buttonContainer: {
@@ -82,6 +85,14 @@ const styles = StyleSheet.create({
     descriptionContainer: {
         flex: 1,
         padding: 20,
+    },
+    headerText: {
+        fontSize: 30,
+        fontWeight: "bold",
+    },
+    headerContainer: {
+        height: height / 9,
+        justifyContent: "center",
     },
 });
 export default AccountInformation;

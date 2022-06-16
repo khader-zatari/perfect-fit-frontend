@@ -33,6 +33,7 @@ const HomeNavigator = () => {
                 component={StoreList}
                 options={{
                     headerShown: true,
+                    headerTitle: "Stores",
                 }}
             />
             <Stack.Screen
@@ -40,6 +41,7 @@ const HomeNavigator = () => {
                 component={ProductContainer}
                 options={{
                     headerShown: true,
+                    headerTitle: "Home",
                 }}
             />
 

@@ -112,12 +112,24 @@ const ProductContainer = (props) => {
                         <SearchedProduct navigation={props.navigation} productsFiltered={productsFiltered} personType={personType} store={store} />
                     ) : (
                         <>
-                            <View>
-                                <Text>
-                                    {store.city} , {store.address}
-                                </Text>
-                                <Text>{store.phone}</Text>
-                                <Text>{store.storeMessage}</Text>
+                            <View style={{ backgroundColor: "#f2f2f3", marginBottom: "4%" }}>
+                                <Text style={{ fontSize: 16, fontWeight: "bold", margin: "3%" }}>Store Information</Text>
+                                <View style={{ marginLeft: "3%", marginBottom: "3%" }}>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Text>Location: </Text>
+                                        <Text>
+                                            {store.city} , {store.address}
+                                        </Text>
+                                    </View>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Text>Phone Number: </Text>
+                                        <Text>{store.phone}</Text>
+                                    </View>
+                                    <View style={{ marginTop: "3%", marginBottom: "3%" }}>
+                                        <Text style={{ fontWeight: "bold" }}>Announcement</Text>
+                                        <Text>{store.storeMessage}</Text>
+                                    </View>
+                                </View>
                             </View>
                             <View>
                                 <Banner bannerImages={store.BannerImages ? store.BannerImages : [""]} height={2} />
