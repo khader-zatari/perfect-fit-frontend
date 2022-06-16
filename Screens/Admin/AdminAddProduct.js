@@ -6,6 +6,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
 import { ACCESSKEY, SECRETKEY } from "../../Shared/Secret";
+import baseURL from "../../assets/baseUrl";
+import axios from "axios";
 
 const { height, width } = Dimensions.get("window");
 const AdminAddProduct = (props) => {
@@ -14,6 +16,7 @@ const AdminAddProduct = (props) => {
     const colors = ["white", "black", "blue", "grey", "As Photos"];
 
     const [category, setCategory] = useState(null);
+    const [personType, setPersonType] = useState(null);
     const [color, setColor] = useState(null);
     const [size, setSize] = useState(null);
     const [brand, setBrand] = useState(null);
@@ -99,6 +102,44 @@ const AdminAddProduct = (props) => {
             setSize(res);
         }
     };
+    const personTypeFun = (selected) => {
+        setPersonType(selected);
+    };
+    const addProduct = () => {
+        let data = {
+            images: images,
+            image: images[0],
+            name: name,
+            brand: brand,
+            price: price,
+            description: description,
+            category: category,
+            color: color,
+            admin: user._id,
+            size: size,
+            personType: personType,
+        };
+        console.log("the data is", data);
+        console.log("==================================")
+        //if the item is not new so we want to update it.
+
+        //else it's new so add a new product
+
+        axios
+            .post(`${baseURL}products`, data)
+            .then((res) => {
+                if (res.status == 200 || res.status == 201) {
+                    console.log("New Product added");
+                    setTimeout(() => {
+                        props.navigation.navigate("AdminProducts", { user: user });
+                    }, 500);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
         <SafeAreaView>
             <ScrollView>
@@ -162,6 +203,25 @@ const AdminAddProduct = (props) => {
                                 })}
                             </Select>
                         </View>
+                        <View style={{ marginBottom: 10 }}>
+                            <Select
+                                key="personType"
+                                selectedValue={personType}
+                                accessibilityLabel="personType"
+                                placeholder="Person Type"
+                                color="black"
+                                _selectedItem={{
+                                    bg: "teal.600",
+                                    endIcon: <CheckIcon size="5" />,
+                                }}
+                                mt={1}
+                                onValueChange={personTypeFun}
+                            >
+                                <Select.Item label={"Men"} value={"Men"} key={"Men"} />
+                                <Select.Item label={"Women"} value={"Women"} key={"Women"} />
+                                <Select.Item label={"Kids"} value={"Kids"} key={"Kids"} />
+                            </Select>
+                        </View>
                         <View style={styles.input}>
                             <Text style={{ paddingVertical: 10, fontSize: 11 }}>color</Text>
                             <TextInput style={styles.TextInput} placeholder="red , yellow , ..." id="color" name="color" onChangeText={(text) => textFun(text, "color")} />
@@ -173,14 +233,8 @@ const AdminAddProduct = (props) => {
                     </View>
                     <View style={styles.secondPart}>
                         <View style={styles.buttonContainer}>
-                            <Button
-                                style={styles.button}
-                                size="12"
-                                onPress={() => {
-                                    props.navigation.navigate("AdminAddProductSecond", { description: description, price: price, color: color, category: category, brand: brand, name: name, images: images, user: user, size: size });
-                                }}
-                            >
-                                <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>NEXT STEP</Text>
+                            <Button style={styles.button} size="12" onPress={addProduct}>
+                                <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>SAVE PRODUCT</Text>
                             </Button>
                         </View>
                     </View>
